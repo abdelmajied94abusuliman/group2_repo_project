@@ -89,13 +89,13 @@ if(isset($_GET['delete'])){
    $delete_id = $_GET['delete'];
 
 // هون بدي امسح الصورة تبعت المنتج الي كبسة على الديليت تبعته
-   $delete_product_image = $conn->prepare("SELECT * FROM `products` WHERE id = ?");
+   $delete_product_image = $conn->prepare("SELECT * FROM `products` WHERE product_id = ?");
    $delete_product_image->execute([$delete_id]);
    $fetch_delete_image = $delete_product_image->fetch(PDO::FETCH_ASSOC);
    unlink('../uploaded_img/'.$fetch_delete_image['image']);
 
 // هون بدي امسح المنتج كامل و بعدين اقله انقلني على صفحة المنتجات عشان ما اضطر اعمل ريفريش للصفحة لما احذف منتج
-   $delete_product = $conn->prepare("DELETE FROM `products` WHERE id = ?");
+   $delete_product = $conn->prepare("DELETE FROM `products` WHERE product_id = ?");
    $delete_product->execute([$delete_id]);
    header('location:products.php');
 }
@@ -185,17 +185,36 @@ if(isset($_GET['delete'])){
    <div class="box-container">
 
    <?php
+   
    // اول اشي بدي استدعي جدول المنتجات و الي بحتوي على الاسم و السعر و الصورة و التفاصيل
       $select_products = $conn->prepare("SELECT * FROM `products`");
       $select_products->execute();
       if($select_products->rowCount() > 0){
          while($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)){ 
+            $i=0;
    ?>
    <div class="box">
       <img src="../uploaded_img/<?= $fetch_products['image']; ?>" alt="">
       <div class="name"><?= $fetch_products['name']; ?></div>
       <div class="price">$<span><?= $fetch_products['price']; ?></span>/-</div>
       <div class="details"><span><?= $fetch_products['details']; ?></span></div>
+
+            <?php $product_category = $conn->prepare("SELECT * 
+                                        FROM `products`
+                                        INNER JOIN `category` ON products.category_id = category.category_id");
+                  $product_category->execute();
+                  if($product_category->rowCount() > 0){
+                     while($fetch_product_category = $product_category->fetch(PDO::FETCH_ASSOC)){ 
+                        if($i==0 && $fetch_products['category_id'] == $fetch_product_category['category_id'] ){
+                        $i++;
+            ?>
+                        <div class="details"><span><?= $fetch_product_category['category_name']; ?></span></div>
+            <?php 
+                        }
+                     }
+                  }
+            ?>
+
       <div class="flex-btn">
          <!-- بدي اعمل هسا كبستين او رابطين عشان المسح و التعديل و بدي ابعث الايي ديه مع الروابط تبعت هاي الكبسات عشان  -->         
          <a href="update_product.php?update=<?= $fetch_products['product_id']; ?>" class="option-btn">update</a>

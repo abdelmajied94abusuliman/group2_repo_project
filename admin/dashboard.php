@@ -70,6 +70,17 @@ if(!isset($admin_id)){
 
       <div class="box">
          <?php
+            $select_products = $conn->prepare("SELECT * FROM `products` WHERE is_sale = '1'");
+            $select_products->execute();
+            $number_of_products = $select_products->rowCount()
+         ?>
+         <h3><?= $number_of_products; ?></h3>
+         <p>saled products added</p>
+         <a href="sales.php" class="btn">see sales</a>
+      </div>
+
+      <div class="box">
+         <?php
             $select_category = $conn->prepare("SELECT * FROM `category`");
             $select_category->execute();
             $number_of_category = $select_category->rowCount()

@@ -18,12 +18,13 @@
       <a href="../admin/dashboard.php" class="logo">Admin<span>Panel</span></a>
 
       <nav class="navbar">
-         <a href="../admin/dashboard.php">home</a>
-         <a href="../admin/products.php">products</a>
-         <a href="../admin/category.php">category</a>
-         <a href="../admin/placed_orders.php">orders</a>
-         <a href="../admin/admin_accounts.php">admins</a>
-         <a href="../admin/users_accounts.php">users</a>
+         <a href="../admin/dashboard.php">Home</a>
+         <a href="../admin/products.php">Products</a>
+         <a href="../admin/sales.php">Sale</a>
+         <a href="../admin/category.php">Category</a>
+         <a href="../admin/placed_orders.php">Orders</a>
+         <a href="../admin/admin_accounts.php">Admins</a>
+         <a href="../admin/users_accounts.php">Users</a>
       </nav>
 
       <div class="icons">
@@ -39,7 +40,7 @@
          ?>
          <p><?= $fetch_profile['name']; ?></p>
          <a href="../admin/update_profile.php" class="btn">update profile</a>
-         <a href="../admin/register_admin.php" class="option-btn">Add New Admin</a>
+         <a href="../admin/add_new_admin.php" class="option-btn">Add New Admin</a>
          <a href="../components/admin_logout.php" class="delete-btn" onclick="return confirm('logout from the website?');">logout</a> 
       </div>
 
