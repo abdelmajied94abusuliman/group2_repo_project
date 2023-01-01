@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
    $product_name = $_POST['name'];
    $product_price = $_POST['price'];
    $product_image = $_POST['image'];
-   $product_quantity = $_POST['qty'];
+   $product_quantity = $_POST['quantity'];
 
    $send_to_cart = $conn->prepare("INSERT INTO `cart` (user_id , product_id , name , price , image , quantity)
                                     VALUES (? , ? , ? , ?, ? , ?)"); 
@@ -108,47 +108,20 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
 
    <div class="swiper-wrapper">
 
-   <a href="category.php?category=laptop" class="swiper-slide slide">
+   <a href="category.php?category=1" class="swiper-slide slide">
       <img src="images/icon-1.png" alt="">
-      <h3>laptop</h3>
+      <h3>Abdelmajied</h3>
    </a>
 
-   <a href="category.php?category=tv" class="swiper-slide slide">
+   <a href="category.php?category=4" class="swiper-slide slide">
       <img src="images/icon-2.png" alt="">
-      <h3>tv</h3>
+      <h3>admin</h3>
    </a>
 
-   <a href="category.php?category=camera" class="swiper-slide slide">
+   <a href="category.php?category=5" class="swiper-slide slide">
       <img src="images/icon-3.png" alt="">
-      <h3>camera</h3>
+      <h3>asem</h3>
    </a>
-
-   <a href="category.php?category=mouse" class="swiper-slide slide">
-      <img src="images/icon-4.png" alt="">
-      <h3>mouse</h3>
-   </a>
-
-   <a href="category.php?category=fridge" class="swiper-slide slide">
-      <img src="images/icon-5.png" alt="">
-      <h3>fridge</h3>
-   </a>
-
-   <a href="category.php?category=washing" class="swiper-slide slide">
-      <img src="images/icon-6.png" alt="">
-      <h3>washing machine</h3>
-   </a>
-
-   <a href="category.php?category=smartphone" class="swiper-slide slide">
-      <img src="images/icon-7.png" alt="">
-      <h3>smartphone</h3>
-   </a>
-
-   <a href="category.php?category=watch" class="swiper-slide slide">
-      <img src="images/icon-8.png" alt="">
-      <h3>watch</h3>
-   </a>
-
-   </div>
 
    <div class="swiper-pagination"></div>
 
@@ -165,24 +138,64 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
    <div class="swiper-wrapper">
 
    <?php
-     $select_products = $conn->prepare("SELECT * FROM `products` LIMIT 2"); 
+     $select_products = $conn->prepare("SELECT * FROM `products` WHERE is_sale='1'"); 
      $select_products->execute();
      if($select_products->rowCount() > 0){
       while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
+         $i=0;
    ?>
-   <form action="" method="post" class="swiper-slide slide">
+   <form action="" method="post" class="swiper-slide slide" style="height:430px">
       <input type="hidden" name="product_id" value="<?= $fetch_product['product_id']; ?>">
       <input type="hidden" name="name" value="<?= $fetch_product['name']; ?>">
-      <input type="hidden" name="price" value="<?= $fetch_product['price']; ?>">
+      <?php 
+      if ($fetch_product['is_sale'] == 1){
+         ?>
+         <input type="hidden" name="price" value="<?=$fetch_product['price_discount'];?>">
+         <?php
+      } else {
+         ?>
+         <input type="hidden" name="price" value="<?=$fetch_product['price'];?>">
+         <?php
+      }
+      ?>
       <input type="hidden" name="image" value="<?= $fetch_product['image']; ?>">
       <a href="quick_view.php?pid=<?= $fetch_product['product_id']; ?>" class="fas fa-eye"></a>
       <img src="uploaded_img/<?= $fetch_product['image']; ?>" alt="">
       <div class="name"><?= $fetch_product['name']; ?></div>
+      <?php $product_category = $conn->prepare("SELECT * 
+                                        FROM `products`
+                                        INNER JOIN `category` ON products.category_id = category.category_id");
+                  $product_category->execute();
+                  if($product_category->rowCount() > 0){
+                     while($fetch_product_category = $product_category->fetch(PDO::FETCH_ASSOC)){ 
+                        if($i==0 && $fetch_product['category_id'] == $fetch_product_category['category_id'] ){
+                        $i++;
+            ?>
+                        <div class="details" style="color : rgb(133, 132, 132); font-size:15px"><span>Category : <?= $fetch_product_category['category_name']; ?></span>
+      </div>
+            <?php 
+                        }
+                     }
+                  }
+            ?>
       <div class="flex">
-         <div class="price"><span>$</span><?= $fetch_product['price']; ?><span></span></div>
+
+         <?php if ($fetch_product['is_sale'] == 1){ ?>
+
+            <div class="price"><span><del style="text-decoration:line-through; color:silver">$<?= $fetch_product['price']; ?></del><ins style="color:green; padding:20px 0px"> $<?=$fetch_product['price_discount'];?></ins> </span></div>
+
+         <?php } else { ?>
+
+            <div class="name" style="color:green;">$<?= $fetch_product['price']; ?></div> <?php } ?>
+
          <?php if ($fetch_product['category_id'] != '1'){?>
-         <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
-         <?php } ?>      
+
+            <input type="number" name="quantity" class="qty" min="1" max="99" value="1">
+
+         <?php } else { ?>
+            <input type="hidden" name="quantity" value="1">
+         <?php } ?> 
+
       </div>
       <button type="submit" class="btn" name="addTOcart">Add To Cart</button>
    </form>

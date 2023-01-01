@@ -199,9 +199,9 @@ if(isset($_GET['delete'])){
 
 
       <?php if ($fetch_products['is_sale'] == 1){ ?>
-      <div class="price"><span><del style="text-decoration:line-through; color:silver">$<?= $fetch_products['price']; ?></del><ins> $<?=$fetch_products['price_discount'];?></ins> </span></div>
+      <div class="price"><span><del style="text-decoration:line-through; color:silver">$<?= $fetch_products['price']; ?></del><ins style="color:green;"> $<?=$fetch_products['price_discount'];?></ins> </span></div>
       <?php } else { ?>
-         <div class="name"><?= $fetch_products['price']; ?></div> <?php } ?>
+         <div class="name"style="color:green; padding:20px 0px">$<?= $fetch_products['price']; ?></div> <?php } ?>
 
          
       <div class="details"><span><?= $fetch_products['details']; ?></span></div>
@@ -215,7 +215,8 @@ if(isset($_GET['delete'])){
                         if($i==0 && $fetch_products['category_id'] == $fetch_product_category['category_id'] ){
                         $i++;
             ?>
-                        <div class="details"><span>Category : <?= $fetch_product_category['category_name']; ?></span></div>
+                        <div class="details"><span>Category : <?= $fetch_product_category['category_name']; ?></span>
+      </div>
             <?php 
                         }
                      }

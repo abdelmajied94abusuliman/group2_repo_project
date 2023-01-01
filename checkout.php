@@ -25,17 +25,16 @@ if(isset($_POST['order'])){
 
    if($check_cart->rowCount() > 0){
 
-      $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, location, total_products, total_price) VALUES(?,?,?,?)");
+      $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, location, total_products, total_price, order_time) VALUES(?,?,?,?,?)");
 
-
-      $insert_order->execute([$user_id, $address, $total_products, $total_price]);
+      date_default_timezone_set("Asia/Amman");
+      $date_of_order = date("h:i:sa");
+      
+      $insert_order->execute([$user_id, $address, $total_products, $total_price, $date_of_order]);
 
       $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
       $delete_cart->execute([$user_id]);
 
-      $message[] = 'order placed successfully!';
-   }else{
-      $message[] = 'your cart is empty';
    }
 
 }

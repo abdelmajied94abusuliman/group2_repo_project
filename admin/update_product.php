@@ -17,9 +17,6 @@ if(isset($_POST['update'])){
    $price = $_POST['price'];
    $details = $_POST['details'];
    $category_data = $_POST['category'];
-   // foreach($_POST['category'] as $selected){
-   //    $category = $selected;
-   // }
 
    $update_product = $conn->prepare("UPDATE `products` SET name = ?, price = ?, details = ?, category_id = ? WHERE product_id = ?");
    $update_product->execute([$name, $price, $details, $category_data, $pid]);

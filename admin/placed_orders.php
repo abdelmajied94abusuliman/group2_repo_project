@@ -48,7 +48,8 @@ if(!isset($admin_id)){
       <p> name : <span><?= $fetch_orders['name']; ?></span> </p>
       <p> number : <span><?= $fetch_orders['mobile']; ?></span> </p>
       <p> total products : <span><?= $fetch_orders['total_quantity']; ?></span> </p>
-      <p> total price : <span>$<?= $fetch_orders['total_price']; ?>/-</span> </p>
+      <p> total price : <span>$<?= $fetch_orders['total_price']; ?></span> </p>
+      <p> Order Time : <span>$<?= $fetch_orders['order_time']; ?></span> </p>
    </div>
    <?php
          }
