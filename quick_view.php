@@ -40,6 +40,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
    
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
@@ -121,19 +123,46 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
         $query = "SELECT * FROM review INNER JOIN users 
                 ON (review.user_id = users.user_id) WHERE product_id = ? ";
                 $stmt = $conn->prepare($query);
-                $stmt->execute([$pid]);
-        
-        while ($comment = $stmt->fetch()) {
-           $comment_id = $comment['review_id'];
-           $user_id = $comment['user_id'];
-           $product_id = $comment['product_id'];
-           $comment_date = $comment['review_date'];
-           $comment_content = $comment['review_text'];
-           $user_name = $comment['name'];
-           ?>
-                  <h4><?php echo $user_name ?></h4>
-                  <h5><?php echo $comment_date ?></h5>
-                  <p><?php echo  $comment_content; ?></p><?php } ?>
+                $stmt->execute([$pid]); ?>
+
+                  <section style="background-color: rgb(156, 101, 0);">
+  <div class="container my-5 py-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-12">
+        <div class="card text-dark">
+          <div class="card-body p-4">
+            <h4 class="mb-0" style="font-size: 22px;">Recent comments</h4>
+            <?php while ($comment = $stmt->fetch()) {
+            $comment_id = $comment['review_id'];
+            $user_id = $comment['user_id'];
+            $product_id = $comment['product_id'];
+            $comment_date = $comment['review_date'];
+            $comment_content = $comment['review_text'];
+            $user_name = $comment['name'];
+            ?>
+            <div class="card-body p-4">
+            <div class="d-flex flex-start">
+              <div>
+                <h6 class="fw-bold mb-1" style="font-size: 26px;"><?php echo $user_name ?></h6>
+                <div class="d-flex align-items-center mb-3">
+                  <p class="mb-0" style="font-size: 12px;">
+                  <?php echo $comment_date ?>
+                  </p>
+                </div>
+                <p class="mb-0" style="font-size: 20px;">
+                <?php echo  $comment_content; ?>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-0" /><?php } ?>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       
          <?php if (isset($_POST['submit_comment'])) {
@@ -162,7 +191,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
                </div>
             </div>
             <div class="col-md-12 text-right">
-               <button type="submit" name="submit_comment" class="btn submit_btn">
+               <button type="submit" name="submit_comment" class="btn submit_btn" style="background-color: green; font-size : 20px;">
                   Submit Now
                </button>
             </div>
