@@ -196,7 +196,14 @@ if(isset($_GET['delete'])){
    <div class="box">
       <img src="../uploaded_img/<?= $fetch_products['image']; ?>" alt="">
       <div class="name"><?= $fetch_products['name']; ?></div>
-      <div class="price">$<span><?= $fetch_products['price']; ?></span>/-</div>
+
+
+      <?php if ($fetch_products['is_sale'] == 1){ ?>
+      <div class="price"><span><del style="text-decoration:line-through; color:silver">$<?= $fetch_products['price']; ?></del><ins> $<?=$fetch_products['price_discount'];?></ins> </span></div>
+      <?php } else { ?>
+         <div class="name"><?= $fetch_products['price']; ?></div> <?php } ?>
+
+         
       <div class="details"><span><?= $fetch_products['details']; ?></span></div>
 
             <?php $product_category = $conn->prepare("SELECT * 
@@ -208,7 +215,7 @@ if(isset($_GET['delete'])){
                         if($i==0 && $fetch_products['category_id'] == $fetch_product_category['category_id'] ){
                         $i++;
             ?>
-                        <div class="details"><span><?= $fetch_product_category['category_name']; ?></span></div>
+                        <div class="details"><span>Category : <?= $fetch_product_category['category_name']; ?></span></div>
             <?php 
                         }
                      }

@@ -44,8 +44,8 @@ if(!isset($admin_id)){
       <div class="box">
          <?php
             $total_completes = 0;
-            $select_completes = $conn->prepare("SELECT * FROM `orders` WHERE payment_status = ?");
-            $select_completes->execute(['completed']);
+            $select_completes = $conn->prepare("SELECT * FROM `orders` WHERE payment_method = ?");
+            $select_completes->execute(['	Cash on Delivery	']);
             if($select_completes->rowCount() > 0){
                while($fetch_completes = $select_completes->fetch(PDO::FETCH_ASSOC)){
                   $total_completes += $fetch_completes['total_price'];

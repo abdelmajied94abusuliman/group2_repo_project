@@ -13,20 +13,18 @@ if(isset($_SESSION['user_id'])){
 if(isset($_POST['submit'])){
 
    $email = $_POST['email'];
-   $email = filter_var($email, FILTER_SANITIZE_STRING);
+   $email =  htmlspecialchars($email, ENT_QUOTES);
    $pass = sha1($_POST['pass']);
-   $pass = filter_var($pass, FILTER_SANITIZE_STRING);
+   $pass = htmlspecialchars($pass, ENT_QUOTES);
+
 
    $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ? AND password = ?");
    $select_user->execute([$email, $pass]);
    $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
    if($select_user->rowCount() > 0){
-      $_SESSION['user_id'] = $row['id'];
-
-      echo $row['id'];
-      echo $_SESSION['user_id'];
-      // header('location:home.php');
+      $_SESSION['user_id'] = $row['user_id'];
+      header('location:home.php');
    }else{
       $message[] = 'incorrect username or password!';
    }
