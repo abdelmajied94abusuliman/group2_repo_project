@@ -13,11 +13,18 @@ if(isset($_SESSION['user_id'])){
 
 if(isset($_POST['order'])){
 
-   $name = $_POST['name'];
-   $number = $_POST['number'];
-   $email = $_POST['email'];
-   $address = 'flat no. '. $_POST['flat'] .', '. $_POST['street'] .', '. $_POST['city'] .', '. $_POST['state'] .', '. $_POST['country'] .' - '. $_POST['pin_code'];
-   $total_products = $_POST['total_products'];
+   $chose_name = $conn->prepare("SELECT * 
+                                 FROM cart 
+                                 INNER JOIN users WHERE cart.user_id = users.user_id");
+   $chose_name->execute();
+   $fetch_name_user = $chose_name->fetch(PDO::FETCH_ASSOC);
+
+   $name = $fetch_name_user['name'];
+   $number = $fetch_name_user['mobile'];
+   $email = $fetch_name_user['email'];
+
+   $address = 'flat no. '. $_POST['flat'] .', '. $_POST['street'] .', '. $_POST['city'] .','. $_POST['country'];
+   $total_quantity = $_POST['quantity'];
    $total_price = $_POST['total_price'];
 
    $check_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
@@ -25,12 +32,12 @@ if(isset($_POST['order'])){
 
    if($check_cart->rowCount() > 0){
 
-      $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, location, total_products, total_price, order_time) VALUES(?,?,?,?,?)");
+      $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, location, total_quantity, total_price, order_time) VALUES(?,?,?,?,?)");
 
       date_default_timezone_set("Asia/Amman");
       $date_of_order = date("h:i:sa");
       
-      $insert_order->execute([$user_id, $address, $total_products, $total_price, $date_of_order]);
+      $insert_order->execute([$user_id, $address, $total_quantity, $total_price, $date_of_order]);
 
       $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
       $delete_cart->execute([$user_id]);
@@ -77,6 +84,7 @@ if(isset($_POST['order'])){
                $cart_items[] = $fetch_cart['name'].' ('.$fetch_cart['price'].' x '. $fetch_cart['quantity'].') - ';
                $total_products = implode($cart_items);
                $total_price += ($fetch_cart['price'] * $fetch_cart['quantity']);
+               $total_quantity += $fetch_cart['quantity'];
       ?>
          <p> <?= $fetch_cart['name']; ?> <span>(<?= '$'.$fetch_cart['price'].' x '. $fetch_cart['quantity']; ?>)</span> </p>
       <?php
@@ -116,7 +124,7 @@ if(isset($_POST['order'])){
             <input type="text" name="country" placeholder="e.g. India" class="box" maxlength="50" required>
          </div>
       </div>
-
+      <input type="hidden" name="quantity" value="<?= $total_quantity ?>">
       <input type="submit" name="order" class="btn <?= ($total_price > 1)?'':'disabled'; ?>" value="place order">
 
    </form>
