@@ -84,7 +84,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
 
                <div class="name" style="color:green; padding:20px 0px">$<?= $fetch_product['price']; ?></div> <?php } ?>
 
-               <?php if ($fetch_product['category_id'] != '1'){?>
+               <?php if ($fetch_product['category_id'] != '9'){?>
 
                <input style="margin-left: 160px ;" type="number" name="quantity" class="qty" min="1" max="99" value="1">
 

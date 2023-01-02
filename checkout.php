@@ -75,6 +75,7 @@ if(isset($_POST['order'])){
 
    <div class="display-orders">
       <?php
+         $total_quantity=0;
          $total_price = 0;
          $cart_items[] = '';
          $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");

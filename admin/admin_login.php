@@ -36,7 +36,11 @@ if(isset($_POST['submit'])){
 
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-   <link rel="stylesheet" href="../css/admin_style.css">
+   <!-- <link rel="stylesheet" href="../css/admin_style.css"> -->
+
+   <style>
+      <?php include ("../css/admin_style.css"); ?>
+   </style>
 
 </head>
 <body>

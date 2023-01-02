@@ -84,9 +84,9 @@ if(isset($_POST['update_qty'])){
 
          <?php } else { ?>
 
-         <div class="name" style="color:green; padding:20px 0px"><?= $fetch_product['price']; ?></div> <?php } ?>
+         <div class="name" style="color:green; padding:20px 0px">$<?= $fetch_product['price']; ?></div> <?php } ?>
 
-         <?php if ($fetch_product['category_id'] != '1'){?>
+         <?php if ($fetch_product['category_id'] != '9'){?>
 
          <input type="number" name="quantity" class="qty" min="1" max="99" value="<?=$fetch_cart['quantity'];?>">
          <button type="submit" class="fas fa-edit" name="update_qty"></button>

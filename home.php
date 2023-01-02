@@ -131,7 +131,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
 
 <section class="home-products">
 
-   <h1 class="heading">latest products</h1>
+   <h1 class="heading">Sales Product</h1>
 
    <div class="swiper products-slider">
 
@@ -188,7 +188,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
 
             <div class="name" style="color:green;">$<?= $fetch_product['price']; ?></div> <?php } ?>
 
-         <?php if ($fetch_product['category_id'] != '1'){?>
+         <?php if ($fetch_product['category_id'] != '9'){?>
 
             <input type="number" name="quantity" class="qty" min="1" max="99" value="1">
 

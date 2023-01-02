@@ -131,6 +131,7 @@ if(isset($_GET['delete'])){
       $select_products->execute();
       if($select_products->rowCount() > 0){
          while($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)){ 
+            $i=0;
    ?>
    <div class="box">
       <img src="../uploaded_img/<?= $fetch_products['image']; ?>" alt="">
@@ -145,11 +146,13 @@ if(isset($_GET['delete'])){
       $select_product_category->execute();
       if($select_product_category->rowCount() > 0){
          while($fetch_product_category = $select_product_category->fetch(PDO::FETCH_ASSOC)){
+            if($i==0 && $fetch_products['category_id'] == $fetch_product_category['category_id'] ){
+               $i++;
          ?>
 
       <div class="details"><span><?php if( $fetch_products['category_id'] == $fetch_product_category['category_id'] ){ echo "Category : " . $fetch_product_category['category_name'];}?></span></div>
 
-      <?php } }
+      <?php } } }
       ?>
 
       <div class="flex-btn" style="background-color: red;">
