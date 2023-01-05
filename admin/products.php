@@ -103,144 +103,318 @@ if(isset($_GET['delete'])){
 
 ?>
 
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>products</title>
+    <meta charset="utf-8">
+    <title>Art Hand Kraft</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
 
-   <link rel="stylesheet" href="../css/admin_style.css">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../css/dashboardstyle.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #eb8f16;
+            --secondary: #000000;
+            --light: #6C7293;
+            --dark: #000000;
+        }
+        .fa-bars:before {
+            content: "\f0c9";
+            color: white;
+        }
+        .btn-primary {
+            color: #fff;
+            background-color: #C6861A;
+            border-color: #C6861A;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            height: 100vh;
+            overflow-y: auto;
+            background: #0f1116;
+            transition: 0.5s;
+            z-index: 999;
+        }
+    </style>
 </head>
-<body>
 
-<?php include '../components/admin_header.php'; ?>
+<body style="background-color: black;">
+    <div class="container-fluid position-relative d-flex p-0">
+        <!-- Spinner Start -->
+        <!-- Spinner End -->
 
-<section class="add-products">
 
-   <h1 class="heading">add product</h1>
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-secondary navbar-dark">
+                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>DarkPan</h3>
+                </a>
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="ms-3">
+                        <h4 class="mb-0">
 
-   <form action="" method="post" enctype="multipart/form-data">
-      <div class="flex">
-         <div class="inputBox">
-            <span>product name (required)</span>
-            <input type="text" class="box" required maxlength="100" placeholder="enter product name" name="name">
-         </div>
-         <div class="inputBox">
-            <span>product price (required)</span>
-            <input type="number" min="0" class="box" required max="9999999999" placeholder="enter product price" onkeypress="if(this.value.length == 10) return false;" name="price">
-         </div>
-        <div class="inputBox">
-            <span>image 01 (required)</span>
-            <input type="file" name="image" accept="image/jpg, image/jpeg, image/png, image/webp" class="box" required>
+                        <?php $select_accounts = $conn->prepare("SELECT * FROM `admins` WHERE id = '$admin_id'");
+                                $select_accounts->execute();
+                                $admin_name = $select_accounts->fetch();
+                                echo strtoupper($admin_name['name']);
+                        ?>
+                        </h4>
+                    </div>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="dashboard.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="products.php" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Products</a>
+                    <a href="sales.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Sales</a>
+                    <a href="category.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Category</a>
+                    <a href="orders.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Orders</a>
+                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Users</a>
+                    <a href="../components/admin_logout.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Logout</a>
+                </div>
+            </nav>
         </div>
-         <div class="inputBox">
-            <span>product details (required)</span>
-            <textarea name="details" placeholder="enter product details" class="box" required maxlength="500" cols="30" rows="10"></textarea>
-         </div>
-         <div class="inputBox">
-            <span>product category (required)</span>
-
-         <!-- بدي اعمل قائمة فيه الكاتيجوري الي عندي كخيارات -->
-            <select name="category" placeholder="enter product category" class="box" required maxlength="500" cols="60" rows="10">
-               <?php
-               // اول اشي استدعي كل الاعمدة الي بجدول الكاتيجوري
-                     $prepare_category = $conn->prepare("SELECT * FROM `category`");
-                     $prepare_category->execute();
-               // هون بسأله اذا اصلا فيه بيانات بجدول الكاتيجوري اول , الفانكشن (روو كاونت ) بحسب عدد الصفوف بالجدول فلو كان صفر يعني ما فيه داتا بهادا الجدول
-
-                     if($prepare_category->rowCount() > 0){
-                        // اذا الجدول فيه داتا فبقله اقرألي هاي البيانات و اعطيها اسم الي هو فيتش_كاتيجوري
-                        while($fetch_category = $prepare_category->fetch(PDO::FETCH_ASSOC)){
-               ?>
-               <option class="dropdown-item" name="category">
-                     <?php 
-                     // جوا تاج الاوبشن بقله اطبعلي الاي دييه لكل كاتيجوري بالاضافة لاسمها و بسكر التاج بعيدها
-                     echo $fetch_category['category_id'] . "/" . $fetch_category['category_name']; 
-                     ?>
-               </option>
-               <!-- هون بتكون جملة اللوب الاولى تبعت الوايل خلصت , فبرجع بلف كمان مرة و بطلع الكاتيجوري الثانية و هيك -->
-               <?php 
-               // هاي جملة الايلس تبعت في حال كان عدد الصفوف بالجدول يساوي صفر , طبعا اول قوس كيرلي هو تسكيرة قوس الوايل لانه لازم يكون بعد تاج الاوبشن حتى ما يصير فيه مشاكل بعرض الداتا
-                     } } else { echo 'There is no category. Please create one first.';} 
-            ?>    
-            </select>
-         </div>
-      </div>
-      
-      <input type="submit" value="add product" class="btn" name="add_product">
-   </form>
-
-</section>
-
-<section class="show-products">
-
-<!-- بدي اعرض حاليا كل المنتجات الي عندي مع الاشياء الخاصة فيها : الاسم - السعر - الصورة - التفاصيل - الكاتيجوري -->
-
-   <h1 class="heading">products added</h1>
-   <div class="box-container">
-
-   <?php
-   
-   // اول اشي بدي استدعي جدول المنتجات و الي بحتوي على الاسم و السعر و الصورة و التفاصيل
-      $select_products = $conn->prepare("SELECT * FROM `products`");
-      $select_products->execute();
-      if($select_products->rowCount() > 0){
-         while($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)){ 
-            $i=0;
-   ?>
-   <div class="box">
-      <img src="../uploaded_img/<?= $fetch_products['image']; ?>" alt="">
-      <div class="name"><?= $fetch_products['name']; ?></div>
+        <!-- Sidebar End -->
 
 
-      <?php if ($fetch_products['is_sale'] == 1){ ?>
-      <div class="price"><span><del style="text-decoration:line-through; color:silver">$<?= $fetch_products['price']; ?></del><ins style="color:green;"> $<?=$fetch_products['price_discount'];?></ins> </span></div>
-      <?php } else { ?>
-         <div class="name"style="color:green; padding:20px 0px">$<?= $fetch_products['price']; ?></div> <?php } ?>
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <div class="navbar-nav align-items-center ms-auto" style="min-height: 50px;">
 
-         
-      <div class="details"><span><?= $fetch_products['details']; ?></span></div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
 
-            <?php $product_category = $conn->prepare("SELECT * 
-                                        FROM `products`
-                                        INNER JOIN `category` ON products.category_id = category.category_id");
-                  $product_category->execute();
-                  if($product_category->rowCount() > 0){
-                     while($fetch_product_category = $product_category->fetch(PDO::FETCH_ASSOC)){ 
-                        if($i==0 && $fetch_products['category_id'] == $fetch_product_category['category_id'] ){
-                        $i++;
-            ?>
-                        <div class="details"><span>Category : <?= $fetch_product_category['category_name']; ?></span>
-      </div>
-            <?php 
-                        }
-                     }
-                  }
-            ?>
 
-      <div class="flex-btn">
-         <!-- بدي اعمل هسا كبستين او رابطين عشان المسح و التعديل و بدي ابعث الايي ديه مع الروابط تبعت هاي الكبسات عشان  -->         
-         <a href="update_product.php?update=<?= $fetch_products['product_id']; ?>" class="option-btn">update</a>
-         <a href="products.php?delete=<?= $fetch_products['product_id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');">delete</a>
-      </div>
-   </div>
-   <?php
-         }
-      }else{
-         echo '<p class="empty">no products added yet!</p>';
-      }
-   ?>
-   
-   </div>
+            <!-- Sale & Revenue Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h5 class="mb-4">Add New Product</h5>
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Product Name</label>
+                                    <input type="text" name="name" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Product Price</label>
+                                    <input type="text" class="form-control" required id="exampleInputEmail1" aria-describedby="emailHelp" name="price">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Image</label>
+                                    <input type="file" name="image" accept="image/jpg, image/jpeg, image/png, image/webp" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Product Details</label>
+                                    <input type="text" name="details" class="form-control" required id="exampleInputPassword1">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Product Category</label>
+                                    <select name="category" placeholder="enter product category" required class="box" required maxlength="500" cols="60" rows="10">
+                                        <?php
+                                        // اول اشي استدعي كل الاعمدة الي بجدول الكاتيجوري
+                                                $prepare_category = $conn->prepare("SELECT * FROM `category`");
+                                                $prepare_category->execute();
+                                        // هون بسأله اذا اصلا فيه بيانات بجدول الكاتيجوري اول , الفانكشن (روو كاونت ) بحسب عدد الصفوف بالجدول فلو كان صفر يعني ما فيه داتا بهادا الجدول
 
-</section>
+                                                if($prepare_category->rowCount() > 0){
+                                                    // اذا الجدول فيه داتا فبقله اقرألي هاي البيانات و اعطيها اسم الي هو فيتش_كاتيجوري
+                                                    while($fetch_category = $prepare_category->fetch(PDO::FETCH_ASSOC)){
+                                        ?>
+                                        <option class="dropdown-item" name="category">
+                                                <?php 
+                                                // جوا تاج الاوبشن بقله اطبعلي الاي دييه لكل كاتيجوري بالاضافة لاسمها و بسكر التاج بعيدها
+                                                echo $fetch_category['category_id'] . "/" . $fetch_category['category_name']; 
+                                                ?>
+                                        </option>
+                                        <!-- هون بتكون جملة اللوب الاولى تبعت الوايل خلصت , فبرجع بلف كمان مرة و بطلع الكاتيجوري الثانية و هيك -->
+                                        <?php 
+                                        // هاي جملة الايلس تبعت في حال كان عدد الصفوف بالجدول يساوي صفر , طبعا اول قوس كيرلي هو تسكيرة قوس الوايل لانه لازم يكون بعد تاج الاوبشن حتى ما يصير فيه مشاكل بعرض الداتا
+                                                } } else { echo 'There is no category. Please create one first.';} 
+                                        ?>    
+                                    </select>
+                                </div>
+                                <input type="submit" class="btn btn-primary" value="Add Product" name="add_product">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <img src="https://cdn.shopify.com/s/files/1/0277/3614/5999/articles/soorten-kunst.png?v=1623749344" width="550px" height="500px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <!-- Sale & Revenue End -->
 
-<script src="../js/admin_script.js"></script>
-   
+
+            <!-- Admin Table -->
+
+            
+            <div class="container-fluid pt-4 px-4" style="margin-bottom: 30px;">
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h5 class="mb-4">Products Table</h5>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Products Name</th>
+                                            <th scope="col">Products Image</th>
+                                            <th scope="col">Product Price</th>
+                                            <th scope="col">Product Discount</th>
+                                            <th scope="col">Product Category</th>
+                                            <th scope="col">Product Details</th>
+                                            <th scope="col">Product Update</th>
+                                            <th scope="col">Product Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <?php
+                                        $numbering = 1;
+                                        $select_products = $conn->prepare("SELECT * FROM `products`");
+                                        $select_products->execute();
+                                        if($select_products->rowCount() > 0){
+                                            while($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)){ 
+                                                $i=0;
+                                    ?>
+                                        <tr>
+                                            <td><?= $numbering++; ?> 
+
+                                            <td><?= $fetch_products['name']; ?></td>
+
+                                            <td><img src="../uploaded_img/<?= $fetch_products['image']; ?>" alt="" width="50px" height="50px"></td> <!-- image -->
+
+                                            <?php if ($fetch_products['is_sale'] == 1){ ?>
+
+                                                <td><del style="text-decoration:line-through; color:silver">$<?= $fetch_products['price']; ?></del></td>
+                                                <td><ins style="color:green;"> $<?=$fetch_products['price_discount'];?></ins></td>
+
+                                                <?php } else { ?>
+                                                <td style="color:green;">$<?= $fetch_products['price']; ?></td>
+                                                <td>Not On Sale</td>
+                                                <?php } 
+                                            ?>
+
+                                            <?php $product_category = $conn->prepare("SELECT * 
+                                                                                    FROM `products`
+                                                                                    INNER JOIN `category` ON products.category_id = category.category_id");
+                                                    $product_category->execute();
+                                                    if($product_category->rowCount() > 0){
+                                                        while($fetch_product_category = $product_category->fetch(PDO::FETCH_ASSOC)){ 
+                                                            if($i==0 && $fetch_products['category_id'] == $fetch_product_category['category_id'] ){
+                                                            $i++;
+                                            ?>
+
+                                            <td>Category : <?= $fetch_product_category['category_name']; ?></td>
+
+                                            <?php } } } ?>
+
+                                            
+                                            <td><?= $fetch_products['details']; ?></td>
+
+
+                                            
+                                            <td><a href="aa.php?update=<?= $fetch_products['product_id']; ?>" style="color:yellow" class="option-btn">Update</a></td>
+
+                                            <td><a href="products.php?delete=<?= $fetch_products['product_id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');">Delete</a></td>
+
+
+
+
+
+                                        </tr>
+                                       <?php } } else{
+                                                echo '<p class="empty">no accounts available!</p>';
+                                            } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sales Chart End -->
+
+
+            <!-- Recent Sales Start -->
+            
+            <!-- Recent Sales End -->
+
+
+            <!-- Widgets Start -->
+            
+            <!-- Widgets End -->
+
+
+            <!-- Footer Start -->
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
 </body>
+
 </html>
