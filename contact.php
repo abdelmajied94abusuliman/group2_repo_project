@@ -10,34 +10,6 @@ if(isset($_SESSION['user_id'])){
    $user_id = '';
 };
 
-if(isset($_POST['send'])){
-
-   $name = $_POST['name'];
-   $name = filter_var($name, FILTER_SANITIZE_STRING);
-   $email = $_POST['email'];
-   $email = filter_var($email, FILTER_SANITIZE_STRING);
-   $number = $_POST['number'];
-   $number = filter_var($number, FILTER_SANITIZE_STRING);
-   $msg = $_POST['msg'];
-   $msg = filter_var($msg, FILTER_SANITIZE_STRING);
-
-   $select_message = $conn->prepare("SELECT * FROM `messages` WHERE name = ? AND email = ? AND number = ? AND message = ?");
-   $select_message->execute([$name, $email, $number, $msg]);
-
-   if($select_message->rowCount() > 0){
-      $message[] = 'already sent message!';
-   }else{
-
-      $insert_message = $conn->prepare("INSERT INTO `messages`(user_id, name, email, number, message) VALUES(?,?,?,?,?)");
-      $insert_message->execute([$user_id, $name, $email, $number, $msg]);
-
-      $message[] = 'sent message successfully!';
-
-   }
-
-}
-
-
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +18,9 @@ if(isset($_POST['send'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>contact</title>
+   <title>About</title>
+
+   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
    
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -54,21 +28,74 @@ if(isset($_POST['send'])){
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
+   <style>
+      <?php include 'css/style.css'; ?>
+
+   </style>
+
 </head>
 <body>
    
 <?php include 'components/user_header.php'; ?>
 
-<section class="contact">
+<section class="about">
 
-   <form action="" method="post">
-      <h3>get in touch</h3>
-      <input type="text" name="name" placeholder="enter your name" required maxlength="20" class="box">
-      <input type="email" name="email" placeholder="enter your email" required maxlength="50" class="box">
-      <input type="number" name="number" min="0" max="9999999999" placeholder="enter your number" required onkeypress="if(this.value.length == 10) return false;" class="box">
-      <textarea name="msg" class="box" placeholder="enter your message" cols="30" rows="10"></textarea>
-      <input type="submit" value="send message" name="send" class="btn">
-   </form>
+   <div class="row">
+
+      <div class="image">
+         <img src="images/contactus.png" alt="imge-about">
+      </div>
+
+      <div class="content">
+         <h3>Contact Us</h3>
+         <p style="text-align: justify"><br>Dear customer, If you have any questions, please send them our way!  We love hearing from everyone. 
+         we are happy to serve you.<br><br>
+         We hope to be exelent as you think and give you the best.If you are interested and have creative artistic handicrafts, send your work and information to the marketing. We will respond back to you as soon as possible. </p>
+      </div>
+
+   </div>
+
+</section>
+
+<section class="reviews">
+   
+   <h1 class="heading">We're here to help</h1>
+
+   <div class="swiper reviews-slider">
+
+   <div class="swiper-wrapper">
+
+      <div class="swiper-slide slide">
+         <img src="images/p1.png" alt="">
+         <h3>Sales</h3>
+         <p>If there are problems related to the sales department, please contact us by email.
+We will respond back to you as soon as possible.<br>
+<b>Salesdepartment@gmail.com</b></p>
+      
+       
+      </div>
+
+      <div class="swiper-slide slide">
+         <img src="images/p2.png" alt="">
+         <h3>Complaints</h3>
+         <p>If there are complaints, please contact us by email. We are happy to serve you.
+We will respond back to you as soon as possible.
+<b>Complaints@gmail.com</b></p>
+         
+         
+      </div>
+
+      <div class="swiper-slide slide">
+         <img src="images/p3.png" alt="">
+         <h3>Marketing</h3>
+         <p>If  have talent or have creative artistic handicrafts, please contact to marketing by email.
+We will respond back to you as soon as possible.
+<b>Marketing@gmail.com</b></p>
+         
+         
+      </div>
+
+   </div>
 
 </section>
 
@@ -80,13 +107,35 @@ if(isset($_POST['send'])){
 
 
 
-
-
-
-
 <?php include 'components/footer.php'; ?>
 
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
 <script src="js/script.js"></script>
+
+<script>
+
+var swiper = new Swiper(".reviews-slider", {
+   loop:false,
+   spaceBetween: 20,
+   pagination: {
+      el: ".swiper-pagination",
+      clickable:true,
+   },
+   breakpoints: {
+      0: {
+        slidesPerView:1,
+      },
+      768: {
+        slidesPerView: 2,
+      },
+      991: {
+        slidesPerView: 3,
+      },
+   },
+});
+
+</script>
 
 </body>
 </html>

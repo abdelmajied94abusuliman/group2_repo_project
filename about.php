@@ -18,7 +18,7 @@ if(isset($_SESSION['user_id'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>about</title>
+   <title>About</title>
 
    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
    
@@ -27,6 +27,11 @@ if(isset($_SESSION['user_id'])){
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
+
+      <style>
+      <?php include 'css/style.css'; ?>
+
+   </style>
 
 </head>
 <body>
@@ -38,13 +43,16 @@ if(isset($_SESSION['user_id'])){
    <div class="row">
 
       <div class="image">
-         <img src="images/about-img.svg" alt="">
+         <img src="images/about.png" alt="imge-about">
       </div>
 
       <div class="content">
-         <h3>why choose us?</h3>
-         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam veritatis minus et similique doloribus? Harum molestias tenetur eaque illum quas? Obcaecati nulla in itaque modi magnam ipsa molestiae ullam consequuntur.</p>
-         <a href="contact.php" class="btn">contact us</a>
+         <h3>Who We Are?</h3>
+         <p style="text-align: justify"><br>In our heart city of Aqaba, The Art Hand Craft Website contributes to a community that is open to differnt people that can develop and use all their talents together.<br><br>
+We are a group of people who have created a website that specializes in selling diffrent art product made by
+ hand  through which we display the talents of many people. We hope to also encourage all to discover and develop their 
+ own unique artistic crafting skills.  No matter if you are a pro crafter or this is your first piece, remember -- you may not have set
+  out to be artist, but life has a way of leading you to your path.</p>
       </div>
 
    </div>
@@ -60,8 +68,8 @@ if(isset($_SESSION['user_id'])){
    <div class="swiper-wrapper">
 
       <div class="swiper-slide slide">
-         <img src="images/pic-1.png" alt="">
-         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia tempore distinctio hic, iusto adipisci a rerum nemo perspiciatis fugiat sapiente.</p>
+         <img src="images/about1.jpeg" alt="about1">
+         <p>"Loving Art Hand Craft! I've got one of the nicest pieces of art. Ease of handle with website.So far I have had no problems with Art Hand Craft website."</p>
          <div class="stars">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
@@ -69,12 +77,12 @@ if(isset($_SESSION['user_id'])){
             <i class="fas fa-star"></i>
             <i class="fas fa-star-half-alt"></i>
          </div>
-         <h3>john deo</h3>
+         <h3>Bara'a Esam</h3>
       </div>
 
       <div class="swiper-slide slide">
-         <img src="images/pic-2.png" alt="">
-         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia tempore distinctio hic, iusto adipisci a rerum nemo perspiciatis fugiat sapiente.</p>
+         <img src="images/about2.jpeg" alt="about2">
+         <p>"I absolutely love the handmade art pieces! They are so beautiful on the wall. They are of high quality. But I prefer online payment, online payment is faster than cash."</p>
          <div class="stars">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
@@ -82,12 +90,12 @@ if(isset($_SESSION['user_id'])){
             <i class="fas fa-star"></i>
             <i class="fas fa-star-half-alt"></i>
          </div>
-         <h3>john deo</h3>
+         <h3>Amro</h3>
       </div>
 
       <div class="swiper-slide slide">
-         <img src="images/pic-3.png" alt="">
-         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia tempore distinctio hic, iusto adipisci a rerum nemo perspiciatis fugiat sapiente.</p>
+         <img src="images/about3.jpeg" alt="about3">
+         <p>"I can't say enough about these beautiful pieces. They are absolutely gorgeous! I recommend them to everyone. I only had them a month ago but I am very impressed with the price-quality!"</p>
          <div class="stars">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
@@ -95,12 +103,12 @@ if(isset($_SESSION['user_id'])){
             <i class="fas fa-star"></i>
             <i class="fas fa-star-half-alt"></i>
          </div>
-         <h3>john deo</h3>
+         <h3>obaida</h3>
       </div>
 
       <div class="swiper-slide slide">
-         <img src="images/pic-4.png" alt="">
-         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia tempore distinctio hic, iusto adipisci a rerum nemo perspiciatis fugiat sapiente.</p>
+         <img src="images/about4.jpg" alt="about4">
+         <p>"I liked the idea of the site, In my opinion handmade products are rare .The product discount at that price so that’s a plus! add to that delivery was real quick "</p>
          <div class="stars">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
@@ -108,33 +116,7 @@ if(isset($_SESSION['user_id'])){
             <i class="fas fa-star"></i>
             <i class="fas fa-star-half-alt"></i>
          </div>
-         <h3>john deo</h3>
-      </div>
-
-      <div class="swiper-slide slide">
-         <img src="images/pic-5.png" alt="">
-         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia tempore distinctio hic, iusto adipisci a rerum nemo perspiciatis fugiat sapiente.</p>
-         <div class="stars">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star-half-alt"></i>
-         </div>
-         <h3>john deo</h3>
-      </div>
-
-      <div class="swiper-slide slide">
-         <img src="images/pic-6.png" alt="">
-         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia tempore distinctio hic, iusto adipisci a rerum nemo perspiciatis fugiat sapiente.</p>
-         <div class="stars">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star-half-alt"></i>
-         </div>
-         <h3>john deo</h3>
+         <h3>Muna</h3>
       </div>
 
    </div>
@@ -144,12 +126,6 @@ if(isset($_SESSION['user_id'])){
    </div>
 
 </section>
-
-
-
-
-
-
 
 
 

@@ -42,6 +42,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
+   <style>
+      <?php include 'css/style.css'; ?>
+
+   </style>
+
 </head>
 <body>
    
@@ -55,38 +60,39 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
       
          <div class="swiper-wrapper">
 
-            <div class="swiper-slide slide">
-               <div class="image">
-                  <img src="./images/home-img-1.png" alt="">
-               </div>
+   <!-- بداية كود السلايدر لعرض الصور  -->
+            <div class="swiper-slide slide" class="pic">
                <div class="content">
-                  <span>upto 50% off</span>
-                  <h3>latest smartphones</h3>
-                  <a href="shop.php" class="btn">shop now</a>
+               <h1>Welcome In Art Hand Craft Website</h1>
+               <h2>Creativity Without Limits</h2>
+               <a href="shop.php" class="btn">shop now</a>
+               </div>
+               <div class="image">
+               <img src="images/home-img-1.png" alt="">
                </div>
             </div>
 
             <div class="swiper-slide slide">
                <div class="image">
-                  <img src="images/home-img-2.png" alt="">
+                  <img src="./images/Botticelli-Map-of-the-Hell.jpg" alt="">
                </div>
                <div class="content">
-                  <span>upto 50% off</span>
-                  <h3>latest watches</h3>
-                  <a href="shop.php" class="btn">shop now</a>
+                  <span style="font-size: 25px;">Botticelli-Map-of-the-Hell</ style="font-size: 25px;">
+                  <h3>Rare Arts</h3>
+                  <a href="https://www.florenceinferno.com/the-map-of-hell/" class="btn">Read More</a>
+               </div>
+            </div>
+            <div class="swiper-slide slide">
+               <div class="image">
+                  <img src="https://d3rf6j5nx5r04a.cloudfront.net/t_YSCw1zT1oBClXYmDqTI9VIp2c=/1120x0/product/9/3/4bf1ce5c2a3543dead841ea1cdd0ef06_opt.jpg" alt="">
+               </div>
+               <div class="content">
+                  <span style="font-size: 25px;">Glowing-Sunset</span>
+                  <h3>Popular Arts</h3>
+                  <a href="https://www.artfinder.com/product/glowing-sunset-221205-sunset-landscape-with-field-trees/" class="btn">Shop from outside</a>
                </div>
             </div>
 
-            <div class="swiper-slide slide">
-               <div class="image">
-                  <img src="images/home-img-3.png" alt="">
-               </div>
-               <div class="content">
-                  <span>upto 50% off</span>
-                  <h3>latest headsets</h3>
-                  <a href="shop.php" class="btn">shop now</a>
-               </div>
-            </div>
 
          </div>
 
@@ -100,6 +106,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
 
 
 
+<!-- start for category  -->
+
 <section class="category">
 
    <h1 class="heading">shop by category</h1>
@@ -108,26 +116,36 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
 
    <div class="swiper-wrapper">
 
-   <a href="category.php?category=1" class="swiper-slide slide">
-      <img src="images/icon-1.png" alt="">
-      <h3>Abdelmajied</h3>
+   <a href="category.php?category=8" class="swiper-slide slide">
+      <img src="images/resincateg.png" alt="">
+      <h3>RESIN ART</h3>
    </a>
 
-   <a href="category.php?category=4" class="swiper-slide slide">
-      <img src="images/icon-2.png" alt="">
-      <h3>admin</h3>
+   <a href="category.php?category=6" class="swiper-slide slide">
+      <img src="images/qullingCateg.png" alt="">
+      <h3>QULLING ART</h3>
    </a>
 
-   <a href="category.php?category=5" class="swiper-slide slide">
-      <img src="images/icon-3.png" alt="">
-      <h3>asem</h3>
+   <a href="category.php?category=9" class="swiper-slide slide">
+      <img src="images/stringcate.png" alt="">
+      <h3>STRING ART</h3>
    </a>
+
+   <a href="category.php?category=7" class="swiper-slide slide">
+      <img src="images/acrylicCateg.png" alt="">
+      <h3>ACRYLIC ART</h3>
+   </a>
+
+   </div>
+
 
    <div class="swiper-pagination"></div>
 
    </div>
 
 </section>
+
+<!-- start for product  -->
 
 <section class="home-products">
 
@@ -190,6 +208,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
 
          <?php if ($fetch_product['category_id'] != '9'){?>
 
+
             <input type="number" name="quantity" class="qty" min="1" max="99" value="1">
 
          <?php } else { ?>
@@ -240,7 +259,7 @@ var swiper = new Swiper(".home-slider", {
 });
 
  var swiper = new Swiper(".category-slider", {
-   loop:true,
+   loop:false,
    spaceBetween: 20,
    pagination: {
       el: ".swiper-pagination",
@@ -257,7 +276,7 @@ var swiper = new Swiper(".home-slider", {
         slidesPerView: 4,
       },
       1024: {
-        slidesPerView: 5,
+        slidesPerView: 4,
       },
    },
 });

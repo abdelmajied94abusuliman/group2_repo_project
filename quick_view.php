@@ -46,6 +46,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
+      <style>
+      <?php include 'css/style.css'; ?>
+
+   </style>
+
 </head>
 <body>
    
@@ -86,6 +91,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
 
                <?php if ($fetch_product['category_id'] != '9'){?>
 
+
+
                <input style="margin-left: 160px ;" type="number" name="quantity" class="qty" min="1" max="99" value="1">
 
                <?php } else { ?>
@@ -114,8 +121,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
    <h1 class="heading">Review for products</h1>
 
 
-        <?php
 
+        <?php
 
         //   ADD COMMENT
 
@@ -125,13 +132,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
                 $stmt = $conn->prepare($query);
                 $stmt->execute([$pid]); ?>
 
-                  <section style="background-color: rgb(156, 101, 0);">
+                  <section style="background-color: #d7cebe;">
+
   <div class="container my-5 py-5">
     <div class="row d-flex justify-content-center">
       <div class="col-md-12 col-lg-12">
         <div class="card text-dark">
           <div class="card-body p-4">
-            <h4 class="mb-0" style="font-size: 22px;">Recent comments</h4>
+            <h4 class="mb-0" style="font-size: 25px;">Recent comments</h4>
+
             <?php while ($comment = $stmt->fetch()) {
             $comment_id = $comment['review_id'];
             $user_id = $comment['user_id'];
@@ -187,16 +196,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
             <form action="" method="post">
             <div >
                <div >
-                  <textarea style="width:1110px; border:2px solid silver"  class="form-control" name="comment_text" cols="12"  rows="3" placeholder="Add your comment" value=""></textarea>
+                  <textarea style="width:1110px;font-size:20px; border:2px solid silver"  class="form-control" name="comment_text" cols="12"  rows="3" placeholder="Add your comment" value=""></textarea>
                </div>
             </div>
             <div class="col-md-12 text-right">
-               <button type="submit" name="submit_comment" class="btn submit_btn" style="background-color: green; font-size : 20px;">
+               <button type="submit" name="submit_comment" class="btn submit_btn" style="background-color:#C6861A ; font-size : 20px;">
+
                   Submit Now
                </button>
             </div>
             </form>
-         <?php } ?> 
+            
+         <?php } echo "<br>"; echo "<br>"?> 
 
 
 

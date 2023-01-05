@@ -1,16 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap');
 
 :root{
-   --main-color:#C6861A;
-   --orange:#7d7d7d;
-   --red:#ED553B;
+   --main-color:#2980b9;
+   --orange:#f39c12;
+   --red:#e74c3c;
    --black:#333;
-   --gray:rgb(149, 147, 147);
    --white:#fff;
-   --light-color:#b0a6a6;
+   --light-color:#666;
    --light-bg:#eee;
    --border:.2rem solid var(--black);
-   --box-shadow: 10px 10px 8px -3px rgba(12, 12, 12, 0.1), 10px 10px 8px #9e9292;
+   --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
 }
 
 *{
@@ -58,7 +57,6 @@ section{
    font-size: 4rem;
    color:var(--black);
    margin-bottom: 2rem;
-   margin-top: 2rem;
    text-align: center;
    text-transform: uppercase;
 }
@@ -82,13 +80,10 @@ section{
 .delete-btn:hover,
 .option-btn:hover{
    background-color: var(--black);
-   color: var(--white);
 }
-/* --main-color #2980b9   #8d082f*/
-.btn{
-   background-color:  var(--main-color);
 
-  
+.btn{
+   background-color: var(--main-color);
 }
 
 .option-btn{
@@ -160,10 +155,9 @@ section{
 .header{
    position: sticky;
    top:0; left:0; right:0;
-   background-color: var(--black);
+   background-color: var(--white);
    box-shadow: var(--box-shadow);
    z-index: 1000;
-   
 }
 
 .header .flex{
@@ -178,25 +172,14 @@ section{
    color:var(--black);
 }
 
-
-.header .flex .logo img{
-    height:60px;
-    width: 60px; 
-    margin-bottom:-20px;
-    margin-top:-15px;
-    margin-left: -40px;
-    color:var(--main-color);
-}
-
 .header .flex .logo span{
    color:var(--main-color);
 }
 
-
 .header .flex .navbar a{
    margin:0 1rem;
    font-size: 2rem;
-   color:var(--white);
+   color:var(--black);
 }
 
 .header .flex .navbar a:hover{
@@ -207,9 +190,9 @@ section{
 
 .header .flex .icons > *{
    margin-left: 1rem;
-   font-size: 1.7rem;
+   font-size: 2.5rem;
    cursor: pointer;
-   color:var(--white);
+   color:var(--black);
 }
 
 .header .flex .icons > *:hover{
@@ -249,9 +232,8 @@ section{
    display: none;
 }
 
-
 .home-bg{
-   background-color:#C8BCA8 ;
+   background:url(../images/home-bg.png) no-repeat;
    background-size: cover;
    background-position: center;
 }
@@ -260,8 +242,8 @@ section{
    display: flex;
    align-items: center;
    flex-wrap: wrap;
-   gap:2rem;
-   padding-bottom: 5rem;
+   gap:1.5rem;
+   padding-bottom: 6rem;
    padding-top: 2rem;
    user-select: none;
 }
@@ -280,25 +262,16 @@ section{
    flex:1 1 40rem;
 }
 
-.home-bg .home .slide .content h2{
-   font-size: 3rem;
-   color:var(--black);
+.home-bg .home .slide .content span{
+   font-size: 2rem;
+   color:var(--white);
 }
 
-.home-bg .home .slide .content h1{
-   margin-left:-3px ;
-   font-size: 6rem;
-   width: 130%;
-   color:var(--black);
-   text-transform: uppercase;
-}
 .home-bg .home .slide .content h3{
    margin-top: 1rem;
-   font-size: 5rem;
-   font-weight: bold;
-   color:var(--black);
+   font-size: 4rem;
+   color:var(--white);
    text-transform: uppercase;
-
 }
 
 .home-bg .home .slide .content .btn{
@@ -310,13 +283,13 @@ section{
    background-color: var(--main-color);
 }
 
-
 .category .slide{
-   margin-top: 5rem;
    margin-bottom: 5rem;
+   box-shadow: var(--box-shadow);
+   border:var(--border);
    text-align: center;
-   padding:1rem;
-   background: var(--gray);
+   padding:2rem;
+   background: var(--white);
    border-radius: .5rem;
 }
 
@@ -324,32 +297,34 @@ section{
    background-color: var(--black);
 }
 
+.category .slide:hover img{
+   filter:invert();
+}
 
 .category .slide:hover h3{
    color:var(--white);
 }
 
 .category .slide img{
-   height: 20rem;
+   height: 7rem;
    width: 100%;
    object-fit: contain;
-   margin-bottom: 0rem;
+   margin-bottom: 1rem;
    user-select: none;
 }
 
 .category .slide h3{
-   font-size: 3rem;
+   font-size: 2rem;
    color:var(--black);
-   font-weight: bold;
    user-select: none;
 }
 
 .home-products .slide{
    position: relative;
    padding:2rem;
-   /* border-radius:3rem; */
-   /* border:var(--border); */
-   /* background-color: var(--white); */
+   border-radius: .5rem;
+   border:var(--border);
+   background-color: var(--white);
    box-shadow: var(--box-shadow);
    margin-bottom: 5rem;
    overflow: hidden;
@@ -974,7 +949,7 @@ section{
 
 .footer .grid .box h3{
    font-size: 2rem;
-   color:var(--white);
+   color:var(--black);
    margin-bottom: 2rem;
    text-transform: capitalize;
 }

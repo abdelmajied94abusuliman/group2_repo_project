@@ -13,12 +13,13 @@ if(isset($_SESSION['user_id'])){
 if(isset($_POST['submit'])){
 
    $name = $_POST['name'];
+   $name = htmlspecialchars($name, ENT_QUOTES);
    $email = $_POST['email'];
+   $email = htmlspecialchars($email, ENT_QUOTES);
    $pass = sha1($_POST['pass']);
    $pass =htmlspecialchars($pass, ENT_QUOTES);
    $cpass = sha1($_POST['cpass']);
    $cpass = htmlspecialchars($cpass, ENT_QUOTES);
-   $mobile = $_POST['mobile'];
 
    $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
    $select_user->execute([$email,]);
@@ -30,8 +31,8 @@ if(isset($_POST['submit'])){
       if($pass != $cpass){
          $message[] = 'confirm password not matched!';
       }else{
-         $insert_user = $conn->prepare("INSERT INTO `users`(name, email, password, mobile) VALUES(?,?,?,?)");
-         $insert_user->execute([$name, $email, $cpass, $mobile]);
+         $insert_user = $conn->prepare("INSERT INTO `users`(name, email, password) VALUES(?,?,?)");
+         $insert_user->execute([$name, $email, $cpass]);
          $message[] = 'registered successfully, login now please!';
       }
    }
@@ -53,6 +54,10 @@ if(isset($_POST['submit'])){
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
+      <style>
+      <?php include 'css/style.css'; ?>
+
+   </style>
 
 </head>
 <body>
@@ -67,7 +72,6 @@ if(isset($_POST['submit'])){
       <input type="email" name="email" required placeholder="enter your email" maxlength="50"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="pass" required placeholder="enter your password" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="cpass" required placeholder="confirm your password" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
-      <input type="number" name="mobile" required placeholder="enter your mobile number" maxlength="10"  class="box">
       <input type="submit" value="register now" class="btn" name="submit">
       <p>already have an account?</p>
       <a href="user_login.php" class="option-btn">login now</a>

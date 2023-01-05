@@ -46,6 +46,10 @@ if(isset($_POST['submit'])){
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
+      <style>
+      <?php include 'css/style.css'; ?>
+
+   </style>
 
 </head>
 <body>

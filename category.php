@@ -41,6 +41,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
+      <style>
+      <?php include 'css/style.css'; ?>
+
+   </style>
+
 </head>
 <body>
    

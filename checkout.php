@@ -35,7 +35,9 @@ if(isset($_POST['order'])){
       $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, location, total_quantity, total_price, order_time) VALUES(?,?,?,?,?)");
 
       date_default_timezone_set("Asia/Amman");
-      $date_of_order = date("h:i:sa");
+      $date_of_order = date("Y:m:d h:i:sa");
+
+      echo $date_of_order;
       
       $insert_order->execute([$user_id, $address, $total_quantity, $total_price, $date_of_order]);
 
@@ -61,6 +63,11 @@ if(isset($_POST['order'])){
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
+
+   <style>
+      <?php include 'css/style.css'; ?>
+
+   </style>
 
 </head>
 <body>
