@@ -32,14 +32,14 @@ if(isset($_POST['order'])){
 
    if($check_cart->rowCount() > 0){
 
-      $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, location, total_quantity, total_price, order_time) VALUES(?,?,?,?,?)");
+      $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, location, total_quantity, total_price, order_time, mobile) VALUES(?,?,?,?,?,?)");
 
       date_default_timezone_set("Asia/Amman");
       $date_of_order = date("Y:m:d h:i:sa");
 
       echo $date_of_order;
       
-      $insert_order->execute([$user_id, $address, $total_quantity, $total_price, $date_of_order]);
+      $insert_order->execute([$user_id, $address, $total_quantity, $total_price, $date_of_order, $number]);
 
       $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
       $delete_cart->execute([$user_id]);

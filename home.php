@@ -67,16 +67,16 @@ include("css/style.css");
                <div class="content">
                <h1>Welcome In Art Hand Craft Website</h1>
                <h2>Creativity Without Limits</h2>
-               <a href="shop.php" class="btn">shop now</a>
+               <a href="shop.php" class="btn">Shop Now</a>
                </div>
                <div class="image">
-               <img src="images/home1.png" alt="">
+               <img src="images/home1.png" alt="" style="height: 80vh;">
                </div>
             </div>
 
             <div class="swiper-slide slide">
                <div class="image">
-                  <img src="./images/home2.png" alt="">
+                  <img src="./images/home2.png" alt="" style="height: 80vh;">
                </div>
                <div class="content">
                   <span style="font-size: 25px;">Botticelli-Map-of-the-Hell</ style="font-size: 25px;">
@@ -86,7 +86,7 @@ include("css/style.css");
             </div>
             <div class="swiper-slide slide">
                <div class="image">
-                  <img src="./images/home.png" alt="">
+                  <img src="./images/home.png" alt="" style="height: 80vh;">
                </div>
                <div class="content">
                   <span style="font-size: 25px;">Glowing-Sunset</span>

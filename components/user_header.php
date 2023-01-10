@@ -9,6 +9,8 @@
          ';
       }
    }
+
+
 ?>
 
 <header class="header" >
@@ -33,13 +35,9 @@
          ?>
          <div id="menu-btn" class="fas fa-bars"></div>
          <a href="cart.php"><i class="fas fa-shopping-cart"></i><span>(<?= $total_cart_counts; ?>)</span></a>
-         <div id="user-btn" class="fas fa-user"> <?php if(!empty($_SESSION['email'])){
-                                                    $user_name = $conn->prepare("SELECT * FROM users WHERE email = ?"); 
-                                                      $user_name->execute([$_SESSION['email']]);
-                                                      if($user_name->rowCount() > 0){
-                                                         $name = $user_name->fetch(PDO::FETCH_ASSOC);
-                                                         echo $name['name'];} } ?>
-      </div>
+         
+         <div id="user-btn" class="fas fa-user"></div>
+         <span> <?php if(!empty($_SESSION['email'])){  echo strtoupper($_SESSION['name']);}  ?></span>
 
       <div class="profile">
          <?php          
