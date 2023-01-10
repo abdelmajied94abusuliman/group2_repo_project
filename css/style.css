@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap');
 
 :root{
-   --main-color:#C6861A;
+   --main-color:#67022f;
    --orange:#7d7d7d;
-   --red:#ED553B;
-   --black:#333;
+   --red:#67022f;
+   --black: #67022f;
    --gray:rgb(149, 147, 147);
    --white:#fff;
    --light-color:#b0a6a6;
    --light-bg:#eee;
    --border:.2rem solid var(--black);
-   --box-shadow: 10px 10px 8px -3px rgba(12, 12, 12, 0.1), 10px 10px 8px #9e9292;
+   --box-shadow: 10px 10px 8px -3px rgba(12, 12, 12, 0.1), 10px 10px 8px #cf7b7b;
 }
 
 *{
@@ -36,7 +36,7 @@
 }
 
 ::-webkit-scrollbar-thumb{
-   background-color: var(--main-color);
+   background-color:#67022f;
 }
 
 html{
@@ -45,7 +45,7 @@ html{
 }
 
 body{
-   background-color: var(--light-bg);
+   background-color: #fde4f6;
 }
 
 section{
@@ -78,25 +78,23 @@ section{
    text-align: center;
 }
 
-.btn:hover,
-.delete-btn:hover,
-.option-btn:hover{
-   background-color: var(--black);
+.btn:hover{
+   background-color:#67022f;
    color: var(--white);
 }
 /* --main-color #2980b9   #8d082f*/
 .btn{
-   background-color:  var(--main-color);
+   background-color:  #67022f;
 
   
 }
 
 .option-btn{
-   background-color: var(--orange);
+   background-color: #0d335c;
 }
 
 .delete-btn{
-   background-color: var(--red);
+   background-color:#7d7d7d;
 }
 
 .flex-btn{
@@ -160,8 +158,8 @@ section{
 .header{
    position: sticky;
    top:0; left:0; right:0;
-   background-color: var(--black);
-   box-shadow: var(--box-shadow);
+   background-color: #67022f;
+   box-shadow: black;
    z-index: 1000;
    
 }
@@ -200,8 +198,8 @@ section{
 }
 
 .header .flex .navbar a:hover{
-   color:var(--main-color);
-   text-decoration: underline;
+   color:#fde4f6;
+ 
 }
 
 
@@ -209,11 +207,11 @@ section{
    margin-left: 1rem;
    font-size: 1.7rem;
    cursor: pointer;
-   color:var(--white);
+   color:#C3ADBD;
 }
 
 .header .flex .icons > *:hover{
-   color:var(--main-color);
+   color:#fff;
 }
 
 .header .flex .icons a span{
@@ -251,7 +249,7 @@ section{
 
 
 .home-bg{
-   background-color:#C8BCA8 ;
+  background-color:#05001b;
    background-size: cover;
    background-position: center;
 }
@@ -271,9 +269,10 @@ section{
 }
 
 .home-bg .home .slide .image img{
-   height: 40rem;
+   height: 30rem;
    width: 100%;
    object-fit: contain;
+   padding-left: 20rem;
 }
 
 .home-bg .home .slide .content{
@@ -282,21 +281,21 @@ section{
 
 .home-bg .home .slide .content h2{
    font-size: 3rem;
-   color:var(--black);
+   color:#c3adbd;
 }
 
 .home-bg .home .slide .content h1{
    margin-left:-3px ;
    font-size: 6rem;
    width: 130%;
-   color:var(--black);
+   color:#c3adbd;
    text-transform: uppercase;
 }
 .home-bg .home .slide .content h3{
    margin-top: 1rem;
    font-size: 5rem;
    font-weight: bold;
-   color:var(--black);
+   color:#C3ADBD;
    text-transform: uppercase;
 
 }
@@ -316,7 +315,7 @@ section{
    margin-bottom: 5rem;
    text-align: center;
    padding:1rem;
-   background: var(--gray);
+   background: #67022f;
    border-radius: .5rem;
 }
 
@@ -339,7 +338,7 @@ section{
 
 .category .slide h3{
    font-size: 3rem;
-   color:var(--black);
+   color:#C3ADBD;
    font-weight: bold;
    user-select: none;
 }
@@ -671,7 +670,7 @@ section{
 .about .row .content p{
    line-height: 2;
    font-size: 1.5rem;
-   color:var(--light-color);
+   color:black;
    padding:1rem 0;
 }
 
@@ -702,7 +701,7 @@ section{
    padding:1rem 0;
    line-height: 2;
    font-size: 1.5rem;
-   color:var(--light-color);
+   color:black;
 }
 
 .reviews .slide .stars{
@@ -716,7 +715,7 @@ section{
 .reviews .slide .stars i{
    margin:0 .3rem;
    font-size: 1.7rem;
-   color:var(--orange);
+   color:#f39c12;
 }
 
 .reviews .slide h3{
@@ -806,20 +805,20 @@ section{
    margin-bottom: 2rem;
 }
 
-.wishlist-total p span{
-   color:var(--red);
-}
-
 .shopping-cart .fa-edit{
    height: 4.5rem;
    border-radius: .5rem;
-   background-color: var(--orange);
+   background-color: #67022f;
    width: 5rem;
    font-size: 2rem;
    color:var(--white);
    cursor: pointer;
 }
 
+element.style {
+    background-color: #67022f;
+    font-size: 20px;
+}
 .shopping-cart .fa-edit:hover{
    background-color: var(--black);
 }
@@ -831,7 +830,7 @@ section{
 }
 
 .shopping-cart .sub-total span{
-   color:var(--red);
+   color:#67022f;
 }
 
 .cart-total{
@@ -852,7 +851,7 @@ section{
 }
 
 .cart-total p span{
-   color:var(--red);
+   color:#67022f;
 }
 
 .display-orders{
@@ -873,7 +872,7 @@ section{
 }
 
 .display-orders p span{
-   color:var(--red);
+   color:#67022f;
 }
 
 .display-orders .grand-total{
@@ -884,14 +883,14 @@ section{
 }
 
 .display-orders .grand-total span{
-   color:var(--red);
+   color:#67022f;
 }
 
 .checkout-orders form{
    padding:2rem;
    border:var(--border);
    background-color: var(--white);
-   box-shadow: var(--box-shadow);
+   box-shadow:#67022f;
    border-radius: .5rem;
 }
 
@@ -953,15 +952,15 @@ section{
    margin:.5rem 0;
    line-height: 1.8;
    font-size: 2rem;
-   color:var(--light-color);
+   color:black;
 }
 
 .orders .box-container .box p span{
-   color:var(--main-color);
+   color:#67022f;
 }
 
 .footer{
-   background-color: var(--white);
+   background-color: #67022f;
    /* padding-bottom: 7rem; */
 }
 
@@ -984,16 +983,17 @@ section{
    margin:1.5rem 0;
    font-size: 1.7rem;
    color:var(--light-color);
+   
 }
 
 .footer .grid .box a i{
    padding-right: 1rem;
-   color:var(--main-color);
+   color:#C3ADBD;
    transition: .2s linear;
 }
 
 .footer .grid .box a:hover{
-   color:var(--main-color);
+   color:#fff;
 }
 
 .footer .grid .box a:hover i{
@@ -1049,6 +1049,7 @@ section{
       display: block;
       margin:2rem;
    }
+
 
    .home-bg .home .slide .content{
       text-align: center;

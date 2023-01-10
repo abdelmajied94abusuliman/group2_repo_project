@@ -41,11 +41,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
-      <style>
-      <?php include 'css/style.css'; ?>
-
-   </style>
-
 </head>
 <body>
    
@@ -102,11 +97,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
 
          <?php if ($fetch_product['is_sale'] == 1){ ?>
 
-            <div class="price" style="padding:7px 0px"><span><del style="text-decoration:line-through; color:silver">$<?= $fetch_product['price']; ?></del><ins style="color:green;"> $<?=$fetch_product['price_discount'];?></ins> </span></div>
+            <div class="price" style="padding:7px 0px"><span><del style="text-decoration:line-through; color:silver">$<?= $fetch_product['price']; ?></del><ins style="color:#67022f;"> $<?=$fetch_product['price_discount'];?></ins> </span></div>
 
          <?php } else { ?>
 
-            <div class="name" style="color:green; padding:20px 0px">$<?= $fetch_product['price']; ?></div> <?php } ?>
+            <div class="name" style="color:#67022f; padding:20px 0px">$<?= $fetch_product['price']; ?></div> <?php } ?>
 
          <?php if ($fetch_product['category_id'] != '9'){?>
 

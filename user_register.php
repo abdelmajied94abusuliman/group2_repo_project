@@ -1,5 +1,13 @@
 <?php
 
+
+$pass='';
+$cpass='';
+$name='';
+$email='';
+
+
+
 include 'components/connect.php';
 
 session_start();
@@ -12,32 +20,66 @@ if(isset($_SESSION['user_id'])){
 
 if(isset($_POST['submit'])){
 
-   $name = $_POST['name'];
-   $name = htmlspecialchars($name, ENT_QUOTES);
-   $email = $_POST['email'];
-   $email = htmlspecialchars($email, ENT_QUOTES);
-   $pass = sha1($_POST['pass']);
-   $pass =htmlspecialchars($pass, ENT_QUOTES);
-   $cpass = sha1($_POST['cpass']);
-   $cpass = htmlspecialchars($cpass, ENT_QUOTES);
+      // Validate name
+    if(preg_match("/^([a-zA-Z' ]+)$/",$_POST['name'])){  
+        $name= $_POST['name'];
+        $name = htmlspecialchars($name, ENT_QUOTES);
+       }else{
+           $message[]= 'Invalid name .';
+       }
 
-   $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
-   $select_user->execute([$email,]);
-   $row = $select_user->fetch(PDO::FETCH_ASSOC);
-
-   if($select_user->rowCount() > 0){
-      $message[] = 'email already exists!';
-   }else{
-      if($pass != $cpass){
-         $message[] = 'confirm password not matched!';
-      }else{
-         $insert_user = $conn->prepare("INSERT INTO `users`(name, email, password) VALUES(?,?,?)");
-         $insert_user->execute([$name, $email, $cpass]);
-         $message[] = 'registered successfully, login now please!';
-      }
+   // Validate email
+   if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+      $email = $_POST['email'];
+      $email = htmlspecialchars($email, ENT_QUOTES);
    }
+   else{
+      $message[] = 'Invalid EMAIL !!';}
+
+
+  // Validate pass
+
+//   $checkPass=preg_match('^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^',$_POST['pass']);
+  if(preg_match('^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^',$_POST['pass']))
+  {
+   $pass = sha1($_POST['pass']);
+     $pass =htmlspecialchars($pass, ENT_QUOTES);
+ 
+  }
+  else 
+  {
+   $message[]='Invalid Pass';
+  }
+  
+  $cpass = sha1($_POST['cpass']);
+  $cpass = htmlspecialchars($cpass, ENT_QUOTES);
+
+
+     if($name!='' && $email!='' && $cpass!='' && $pass!=''){
+
+      $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
+      $select_user->execute([$email,]);
+      $row = $select_user->fetch(PDO::FETCH_ASSOC);
+   
+      if($select_user->rowCount() > 0){
+         $message[] = 'email already exists!';
+      }else{
+         if( $pass != $cpass){
+            $message[] = 'confirm password not matched!';
+         }
+         else{
+            $insert_user = $conn->prepare("INSERT INTO `users`(name, email, password) VALUES(?,?,?)");
+            $insert_user->execute([$name, $email, $cpass]);
+            $message[] = 'registered successfully, login now please!';
+         }
+      }
+     }
+
+
+ 
 
 }
+
 
 ?>
 
@@ -54,10 +96,6 @@ if(isset($_POST['submit'])){
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
-      <style>
-      <?php include 'css/style.css'; ?>
-
-   </style>
 
 </head>
 <body>

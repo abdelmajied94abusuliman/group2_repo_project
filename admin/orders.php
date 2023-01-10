@@ -10,37 +10,6 @@ if(!isset($admin_id)){
    header('location:admin_login.php');
 }
 
-if(isset($_POST['update'])){
-
-   $cat_id = $_POST['cat_id'];
-   $name = $_POST['name'];
-   $name = htmlspecialchars($name, ENT_QUOTES);
-
-   $update_product = $conn->prepare("UPDATE `category` SET category_name = ? WHERE category_id = ?");
-   $update_product->execute([$name, $cat_id]);
-
-   $message[] = 'product updated successfully!';
-
-   $old_image_01 = $_POST['old_image_01'];
-   $image_01 = $_FILES['image_01']['name'];
-   $image_01 = htmlspecialchars($image_01, ENT_QUOTES);
-   $image_size_01 = $_FILES['image_01']['size'];
-   $image_tmp_name_01 = $_FILES['image_01']['tmp_name'];
-   $image_folder_01 = '../uploaded_img/'.$image_01;
-
-   if(!empty($image_01)){
-      if($image_size_01 > 2000000){
-         $message[] = 'image size is too large!';
-      }else{
-         $update_image_01 = $conn->prepare("UPDATE `category` SET image_01 = ? WHERE category_id = ?");
-         $update_image_01->execute([$image_01, $cat_id]);
-         move_uploaded_file($image_tmp_name_01, $image_folder_01);
-         unlink('../uploaded_img/'.$old_image_01);
-         $message[] = 'image 01 updated successfully!';
-      }
-   }
-}
-
 ?>
 
 
@@ -52,7 +21,7 @@ if(isset($_POST['update'])){
 
 <head>
     <meta charset="utf-8">
-    <title>Art Hand Kraft/Update Category</title>
+    <title>Art Hand Kraft</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -94,7 +63,11 @@ if(isset($_POST['update'])){
             content: "\f0c9";
             color: white;
         }
-        
+        .btn-primary {
+            color: #fff;
+            background-color: #C6861A;
+            border-color: #C6861A;
+        }
         .sidebar {
             position: fixed;
             top: 0;
@@ -118,11 +91,6 @@ if(isset($_POST['update'])){
         }
         .nav-link{
             color: #fff !important;
-        }
-        .btn-primary {
-            color: #fff;
-            background-color: green !important;
-            border-color: green;
         }
     </style>
 </head>
@@ -155,8 +123,8 @@ if(isset($_POST['update'])){
                     <a href="dashboard.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="products.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Products</a>
                     <a href="sales.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Sales</a>
-                    <a href="category.php" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Category</a>
-                    <a href="orders.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Orders</a>
+                    <a href="category.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Category</a>
+                    <a href="orders.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Orders</a>
                     <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Users</a>
                     <a href="../components/admin_logout.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Logout</a>
                 </div>
@@ -183,59 +151,65 @@ if(isset($_POST['update'])){
 
 
             <!-- Sale & Revenue Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary rounded h-100 p-4">
-                            <h5 class="mb-4">Edit Your Category</h5>
-                            <?php
-                                $update_id = $_GET['update'];
-                                $select_category = $conn->prepare("SELECT * FROM `category` WHERE category_id = ?");
-                                $select_category->execute([$update_id]);
-                                if($select_category->rowCount() > 0){
-                                    while($fetch_category = $select_category->fetch(PDO::FETCH_ASSOC)){ 
-                            ?>
-                            <form action="" method="post" enctype="multipart/form-data">
-                            <input type="hidden" name="cat_id" value="<?= $fetch_category['category_id']; ?>">
-                            <input type="hidden" name="old_image_01" value="<?= $fetch_category['image_01']; ?>">
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">New Category Name</label>
-                                    <input type="text" name="name" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="<?= $fetch_category['category_name']; ?>">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">New Category Image</label>
-                                    <input type="file" name="image_01" accept="image/jpg, image/jpeg, image/png, image/webp" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                </div>
-                                <input style="background-color: green;" type="submit" name="update" class="btn btn-primary" value="Update">
-                                <button style="background-color: yellow !important;" class="btn btn-primary"> <a href="category.php" class="option-btn">Go Back</a> </button>
-                            </form>
-                            <?php
-                                    }
-                                }else{
-                                    echo '<p class="empty">no category found!</p>';
-                                }
-                            ?>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary rounded h-100 p-4">
-                              <?php
-                                    $update_id = $_GET['update'];
-                                    $select_category = $conn->prepare("SELECT * FROM `category` WHERE category_id = ?");
-                                    $select_category->execute([$update_id]);
-                                    $fetch_category = $select_category->fetch(PDO::FETCH_ASSOC);
-                                 ?>
-                            <img src="../uploaded_img/<?= $fetch_category['image_01'];?>" width="350px" height="300px" style="margin-left:100px">
-                        </div>
-                    </div>
-                </div>
-            </div>
            
             <!-- Sale & Revenue End -->
 
 
             <!-- Admin Table -->
 
+            
+            <div class="container-fluid pt-4 px-4" style="margin-bottom: 30px;">
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h5 class="mb-4">What Your Customers Ordered</h5>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Customer Name</th>
+                                            <th scope="col">Customer Phone</th>
+                                            <th scope="col">Customer Location</th>
+                                            <th scope="col">Total Products</th>
+                                            <th scope="col">Total Price</th>
+                                            <th scope="col">Order Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <?php
+                                            $numbering = 1;
+                                            $select_orders = $conn->prepare("SELECT * 
+                                                                            FROM `orders`
+                                                                            INNER JOIN `users` ON Orders.user_id = users.user_id;");
+                                            $select_orders->execute();
+                                            if($select_orders->rowCount() > 0){
+                                                while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
+                                        ?>
+                                        <tr>
+                                            <td><?= $numbering++; ?> 
+
+                                            <td><?= $fetch_orders['name']; ?></td>
+
+                                            <td><?= $fetch_orders['mobile']; ?></td> <!-- image -->
+                                            
+                                            <td><?= $fetch_orders['location']; ?></td>
+                                            <td><?= $fetch_orders['total_quantity']; ?></td>
+                                            <td>$<?= $fetch_orders['total_price']; ?></td>
+                                            <td><?= $fetch_orders['order_time']; ?></span></td>
+
+                                        </tr>
+                                       <?php } } else{
+                                                echo 'no orders placed yet!';
+                                            } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             <!-- Sales Chart End -->
 

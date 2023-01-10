@@ -59,16 +59,48 @@ if(isset($_POST['name']) && isset($_POST['pass'])){
     <link href="../css/dashboardstyle.css" rel="stylesheet">
 
     <style>
-        @media (min-width: 576px) {
-        .p-sm-5 {
-             padding: 1rem !important;
-            }
-        .mx-3 {
-            margin-right: 0rem !important;
-            margin-left: 0rem !important;
-            }
-        
-        
+        <?php include("../css/dashboardstyle.css") ?>
+        /* :root {
+            --primary: #eb8f16;
+            --secondary: #000000;
+            --light: #6C7293;
+            --dark: #000000;
+        } */
+        table {
+            color :#fff !important;
+        }
+        .fa-bars:before {
+            content: "\f0c9";
+            color: white;
+        }
+        .btn-primary {
+            color: #fff;
+            background-color: #C6861A;
+            border-color: #C6861A;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            height: 100vh;
+            overflow-y: auto;
+            background: #cf7b7b;
+            transition: 0.5s;
+            z-index: 999;
+        }
+        input {
+            background-color: #fff !important;
+        }
+        label {
+            color: #fff !important;
+        }
+        .bg-secondary {
+            background-color: #67022f !important;
+        }
+        .nav-link{
+            color: #fff !important;
         }
     </style>
 </head>

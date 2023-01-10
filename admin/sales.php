@@ -105,11 +105,15 @@ if(isset($_GET['delete'])){
     <link href="../css/dashboardstyle.css" rel="stylesheet">
 
     <style>
-        :root {
+        <?php include("../css/dashboardstyle.css") ?>
+        /* :root {
             --primary: #eb8f16;
             --secondary: #000000;
             --light: #6C7293;
             --dark: #000000;
+        } */
+        table {
+            color :#fff !important;
         }
         .fa-bars:before {
             content: "\f0c9";
@@ -128,9 +132,21 @@ if(isset($_GET['delete'])){
             width: 250px;
             height: 100vh;
             overflow-y: auto;
-            background: #0f1116;
+            background: #cf7b7b;
             transition: 0.5s;
             z-index: 999;
+        }
+        input {
+            background-color: #fff !important;
+        }
+        label {
+            color: #fff !important;
+        }
+        .bg-secondary {
+            background-color: #67022f !important;
+        }
+        .nav-link{
+            color: #fff !important;
         }
     </style>
 </head>
@@ -145,7 +161,7 @@ if(isset($_GET['delete'])){
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>DarkPan</h3>
+                    <img src="../uploaded_img/logo1.png" style="border-radius: 50%;" width="100px" height="100px" alt="0">
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="ms-3">
@@ -176,7 +192,7 @@ if(isset($_GET['delete'])){
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+            <!-- <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
                 </a>
@@ -186,7 +202,7 @@ if(isset($_GET['delete'])){
                 <div class="navbar-nav align-items-center ms-auto" style="min-height: 50px;">
 
                 </div>
-            </nav>
+            </nav> -->
             <!-- Navbar End -->
 
 
@@ -222,7 +238,7 @@ if(isset($_GET['delete'])){
 
                                             <td><img src="../uploaded_img/<?= $fetch_products['image']; ?>" alt="" width="50px" height="50px"></td> <!-- image -->
 
-                                            <td style="color:green;">$<?= $fetch_products['price']; ?></td>
+                                            <td style="color:rgb(0, 220, 0);">$<?= $fetch_products['price']; ?></td>
 
                                             <td><a href="add_sale.php?sale=<?= $fetch_products['product_id']; ?>" style="color:yellow" class="option-btn">Add</a></td>
                                             </tr>
@@ -257,14 +273,14 @@ if(isset($_GET['delete'])){
                                                     $i=0;
                                         ?>
                                         <tr>
-                                            <td><?= $numbering++; ?> 
+                                            <td style="color: #fff;"><?= $numbering++; ?> 
 
-                                            <td><?= $fetch_products['name']; ?></td>
+                                            <td style="color: #fff;"><?= $fetch_products['name']; ?></td>
 
                                             <td><img src="../uploaded_img/<?= $fetch_products['image']; ?>" alt="" width="50px" height="50px"></td> <!-- image -->
 
                                             <td><del style="text-decoration:line-through; color:silver">$<?= $fetch_products['price']; ?></del></td>
-                                            <td><ins style="color:green;"> $<?=$fetch_products['price_discount'];?></ins></td>
+                                            <td><ins style="color:rgb(0, 220, 0);"> $<?=$fetch_products['price_discount'];?></ins></td>
 
                                             <td><a href="remove_sale.php?removeSale=<?= $fetch_products['product_id']; ?>" style="color:red" class="option-btn">Remove</a></td>
                                             </tr>

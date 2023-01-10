@@ -1,5 +1,4 @@
 <?php
-
    if(isset($message)){
       foreach($message as $message){
          echo '
@@ -12,11 +11,11 @@
    }
 ?>
 
-<header class="header">
+<header class="header" >
 
    <section class="flex">
 
-      <a href="home.php" class="logo"><img src="uploaded_img/logo1.png" style="border-radius: 50%;"></a>
+   <a href="home.php" class="logo"><img src="uploaded_img/logo1.png" style="border-radius: 50%;" alt="0"></a>
 
       <nav class="navbar">
          <a href="home.php">Home</a>
@@ -33,9 +32,13 @@
             $total_cart_counts = $count_cart_items->rowCount();
          ?>
          <div id="menu-btn" class="fas fa-bars"></div>
-         <a href="search_page.php"><i class="fas fa-search"></i></a>
          <a href="cart.php"><i class="fas fa-shopping-cart"></i><span>(<?= $total_cart_counts; ?>)</span></a>
-         <div id="user-btn" class="fas fa-user"></div>
+         <div id="user-btn" class="fas fa-user"> <?php if(!empty($_SESSION['email'])){
+                                                    $user_name = $conn->prepare("SELECT * FROM users WHERE email = ?"); 
+                                                      $user_name->execute([$_SESSION['email']]);
+                                                      if($user_name->rowCount() > 0){
+                                                         $name = $user_name->fetch(PDO::FETCH_ASSOC);
+                                                         echo $name['name'];} } ?>
       </div>
 
       <div class="profile">
@@ -47,6 +50,9 @@
          ?>
          <p><?= $fetch_profile["name"]; ?></p>
          <a href="update_user.php" class="btn">update profile</a>
+         <div class="flex-btn">
+            
+         </div>
          <a href="components/user_logout.php" class="delete-btn" onclick="return confirm('logout from the website?');">logout</a> 
          <?php
             }else{

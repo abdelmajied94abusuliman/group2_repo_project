@@ -41,11 +41,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
+<style> 
+<?php 
+include("css/style.css");
 
-   <style>
-      <?php include 'css/style.css'; ?>
+?>
 
-   </style>
+</style>
 
 </head>
 <body>
@@ -68,28 +70,28 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
                <a href="shop.php" class="btn">shop now</a>
                </div>
                <div class="image">
-               <img src="images/home-img-1.png" alt="">
+               <img src="images/home1.png" alt="">
                </div>
             </div>
 
             <div class="swiper-slide slide">
                <div class="image">
-                  <img src="./images/Botticelli-Map-of-the-Hell.jpg" alt="">
+                  <img src="./images/home2.png" alt="">
                </div>
                <div class="content">
                   <span style="font-size: 25px;">Botticelli-Map-of-the-Hell</ style="font-size: 25px;">
                   <h3>Rare Arts</h3>
-                  <a href="https://www.florenceinferno.com/the-map-of-hell/" class="btn">Read More</a>
+                  <a href="https://www.artmajeur.com/gourdange-damien/en/artworks/12408437/psychedelic-shape-string-art" class="btn">Read More</a>
                </div>
             </div>
             <div class="swiper-slide slide">
                <div class="image">
-                  <img src="https://d3rf6j5nx5r04a.cloudfront.net/t_YSCw1zT1oBClXYmDqTI9VIp2c=/1120x0/product/9/3/4bf1ce5c2a3543dead841ea1cdd0ef06_opt.jpg" alt="">
+                  <img src="./images/home.png" alt="">
                </div>
                <div class="content">
                   <span style="font-size: 25px;">Glowing-Sunset</span>
                   <h3>Popular Arts</h3>
-                  <a href="https://www.artfinder.com/product/glowing-sunset-221205-sunset-landscape-with-field-trees/" class="btn">Shop from outside</a>
+                  <a href="https://www.saatchiart.com/print/Painting-Flowers-Small-bouquet-Acrylic-painting/981650/7120589/view" class="btn">Shop from outside</a>
                </div>
             </div>
 
@@ -200,7 +202,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
 
          <?php if ($fetch_product['is_sale'] == 1){ ?>
 
-            <div class="price"><span><del style="text-decoration:line-through; color:silver">$<?= $fetch_product['price']; ?></del><ins style="color:green; padding:20px 0px"> $<?=$fetch_product['price_discount'];?></ins> </span></div>
+            <div class="price"><span><del style="text-decoration:line-through; color:silver">$<?= $fetch_product['price']; ?></del><ins style="color:#67022f; padding:20px 0px"> $<?=$fetch_product['price_discount'];?></ins> </span></div>
 
          <?php } else { ?>
 

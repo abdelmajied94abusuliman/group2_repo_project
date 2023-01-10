@@ -10,90 +10,16 @@ if(!isset($admin_id)){
    header('location:admin_login.php');
 }
 
-
-
-
 if(isset($_GET['delete'])){
    $delete_id = $_GET['delete'];
-   $delete_admins = $conn->prepare("DELETE FROM `admins` WHERE id = ?");
-   $delete_admins->execute([$delete_id]);
-   header('location:dashboard.php');
+   $delete_user = $conn->prepare("DELETE FROM `users` WHERE user_id = ?");
+   $delete_user->execute([$delete_id]);
+   $delete_orders = $conn->prepare("DELETE FROM `orders` WHERE user_id = ?");
+   $delete_orders->execute([$delete_id]);
+   $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
+   $delete_cart->execute([$delete_id]);
+   header('location:users_accounts.php');
 }
-
-
-
-
-if(isset($_POST['new-admin']) && isset($_POST['password-newadmin'])){
-
-    $name = $_POST['new-admin'];
-    $name = htmlspecialchars($name, ENT_QUOTES);
-    $pass = sha1($_POST['password-newadmin']);
-    $pass = htmlspecialchars($pass, ENT_QUOTES);
-    $cpass = sha1($_POST['co-password-newadmin']);
-    $cpass = htmlspecialchars($cpass, ENT_QUOTES);
- 
-    $select_admin = $conn->prepare("SELECT * FROM `admins` WHERE name = ?");
-    $select_admin->execute([$name]);
-     
-    if($select_admin->rowCount() > 0){
-        $message[] = 'username already exist!';
-    }else{
-        if($pass != $cpass){
-            $message[] = 'confirm password not matched!';
-        }else{
-            $insert_admin = $conn->prepare("INSERT INTO `admins`(name, password) VALUES(?,?)");
-            $insert_admin->execute([$name, $cpass]);
-            $message[] = 'new admin registered successfully!';
-        }
-    }
- 
- }
-
-
-
- if(isset($_POST['name']) && isset($_POST['old_pass']) && isset($_POST['new_pass']) && isset($_POST['confirm_pass']) ){
-
-    $name = $_POST['name'];
-    $name = filter_var($name, FILTER_SANITIZE_STRING);
- 
-    $update_profile_name = $conn->prepare("UPDATE `admins` SET name = ? WHERE id = ?");
-    $update_profile_name->execute([$name, $admin_id]);
- 
-    $empty_pass = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
-    $prev_pass = $_POST['prev_pass'];
-    $old_pass = sha1($_POST['old_pass']);
-    $old_pass = filter_var($old_pass, FILTER_SANITIZE_STRING);
-    $new_pass = sha1($_POST['new_pass']);
-    $new_pass = filter_var($new_pass, FILTER_SANITIZE_STRING);
-    $confirm_pass = sha1($_POST['confirm_pass']);
-    $confirm_pass = filter_var($confirm_pass, FILTER_SANITIZE_STRING);
- 
-    if($old_pass == $empty_pass){
-       $message[] = 'please enter old password!';
-    }elseif($old_pass != $prev_pass){
-       $message[] = 'old password not matched!';
-    }elseif($new_pass != $confirm_pass){
-       $message[] = 'confirm password not matched!';
-    }else{
-       if($new_pass != $empty_pass){
-          $update_admin_pass = $conn->prepare("UPDATE `admins` SET password = ? WHERE id = ?");
-          $update_admin_pass->execute([$confirm_pass, $admin_id]);
-          $message[] = 'password updated successfully!';
-       }else{
-          $message[] = 'please enter a new password!';
-       }
-    }
-    
- }
-
-
-
-
-?>
-
-<?php 
-
-
 
 ?>
 
@@ -205,12 +131,12 @@ if(isset($_POST['new-admin']) && isset($_POST['password-newadmin'])){
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="dashboard.php" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="dashboard.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="products.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Products</a>
                     <a href="sales.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Sales</a>
                     <a href="category.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Category</a>
                     <a href="orders.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Orders</a>
-                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Users</a>
+                    <a href="users.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Users</a>
                     <a href="../components/admin_logout.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Logout</a>
                 </div>
             </nav>
@@ -236,57 +162,6 @@ if(isset($_POST['new-admin']) && isset($_POST['password-newadmin'])){
 
 
             <!-- Sale & Revenue Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary rounded h-100 p-4">
-                            <h5 class="mb-4">Add New Admin</h5>
-                            <form action="" method="post">
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Username</label>
-                                    <input type="text" name="new-admin" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" name="password-newadmin" class="form-control" id="exampleInputPassword1">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" name="co-password-newadmin" class="form-control" id="exampleInputPassword1">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Add Admin</button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary rounded h-100 p-4">
-                            <h5 class="mb-4">Update Your Profile</h5>
-                            <form action="" method="post">
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Username</label>
-                                    <input type="text" name="name" value="<?=$admin_name['name']; ?>" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Enter old password</label>
-                                    <input type="text" class="form-control" name="old_pass" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                    <input type="hidden" name="prev_pass" value="<?= $admin_name['password']; ?>">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Enter new password</label>
-                                    <input type="text" class="form-control" name="new_pass" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Confirm new password</label>
-                                    <input type="password" class="form-control" name="confirm_pass" id="exampleInputPassword1">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Update Profile</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
            
             <!-- Sale & Revenue End -->
 
@@ -298,34 +173,43 @@ if(isset($_POST['new-admin']) && isset($_POST['password-newadmin'])){
                 <div class="row g-4">
                     <div class="col-12">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <h5 class="mb-4">Admin Table</h5>
+                            <h5 class="mb-4">What Your Customers Ordered</h5>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">First Name</th>
+                                            <th scope="col">Customer ID</th>
+                                            <th scope="col">Customer Username</th>
+                                            <th scope="col">Customer email</th>
+                                            <th scope="col">Customer Number</th>
                                             <th scope="col">Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                       <?php
-                                          $select_accounts = $conn->prepare("SELECT * FROM `admins`");
-                                          $select_accounts->execute();
-                                          if($select_accounts->rowCount() > 0){
-                                             $numbering = 1 ;
-                                             while($fetch_accounts = $select_accounts->fetch(PDO::FETCH_ASSOC)){   
-                                       ?>
+                                    <?php
+                                        $numbering = 1;
+                                        $select_accounts = $conn->prepare("SELECT * FROM `users`");
+                                        $select_accounts->execute();
+                                        if($select_accounts->rowCount() > 0){
+                                            while($fetch_accounts = $select_accounts->fetch(PDO::FETCH_ASSOC)){   
+                                    ?>
                                         <tr>
-                                            <td scope="row"><?= $numbering++ ?></td>
-                                            <td><?= $fetch_accounts['name']; ?></td>
-                                            <td>
-                                                <a href="admin_accounts.php?delete=<?= $fetch_accounts['id']; ?>" onclick="return confirm('delete this account?')" class="delete-btn">Delete</a>
-                                            </td>
+                                            <td><?= $numbering++; ?> 
+
+                                            <td><?= $fetch_accounts['user_id']; ?></td>
+
+                                            <td><?= $fetch_accounts['name']; ?></td> <!-- image -->
+                                            
+                                            <td><?= $fetch_accounts['email']; ?></td>
+                                            <td>0777777777</td>
+
+                                            <td><a href="users_accounts.php?delete=<?= $fetch_accounts['user_id']; ?>" onclick="return confirm('delete this account? the user related information will also be delete!')" class="delete-btn">Delete</a></td>
+
                                         </tr>
                                        <?php } } else{
-                                                echo '<p class="empty">no accounts available!</p>';
+                                                echo 'no customers have!';
                                             } ?>
                                     </tbody>
                                 </table>
