@@ -35,8 +35,9 @@ if(!isset($admin_id)){
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
     
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../images/logo.png">
 
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -50,23 +51,12 @@ if(!isset($admin_id)){
 
     <style>
         <?php include("../css/dashboardstyle.css") ?>
-        /* :root {
-            --primary: #eb8f16;
-            --secondary: #000000;
-            --light: #6C7293;
-            --dark: #000000;
-        } */
-        table {
-            color :#fff !important;
-        }
         .fa-bars:before {
             content: "\f0c9";
-            color: white;
         }
         .btn-primary {
-            color: #fff;
-            background-color: #C6861A;
-            border-color: #C6861A;
+            background-color: rgb(0, 0, 69);
+            border-color: rgb(0, 0, 69);
         }
         .sidebar {
             position: fixed;
@@ -76,21 +66,13 @@ if(!isset($admin_id)){
             width: 250px;
             height: 100vh;
             overflow-y: auto;
-            background: #cf7b7b;
             transition: 0.5s;
-            z-index: 999;
-        }
+            z-index: 999;        }
         input {
             background-color: #fff !important;
         }
-        label {
-            color: #fff !important;
-        }
         .bg-secondary {
-            background-color: #67022f !important;
-        }
-        .nav-link{
-            color: #fff !important;
+            background-color: rgb(0, 0, 69) !important;
         }
     </style>
 </head>
@@ -103,7 +85,7 @@ if(!isset($admin_id)){
 
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-secondary navbar-dark">
+            <nav class="navbar bg-secondary navbar-dark" style="height: 100%;">
                 <a href="index.html" class="navbar-brand mx-4 mb-3">
                     <img src="../uploaded_img/logo1.png" style="border-radius: 50%;" width="100px" height="100px" alt="0">
                 </a>
@@ -122,11 +104,13 @@ if(!isset($admin_id)){
                 <div class="navbar-nav w-100">
                     <a href="dashboard.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="products.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Products</a>
-                    <a href="sales.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Sales</a>
+                    <a href="sold.php" class="nav-item nav-link"><i class="fa-sharp fa-solid fa-store-slash me-2"></i>Sold</a>
+                    <a href="sales.php" class="nav-item nav-link"><i class="fa-brands fa-adversal me-2"></i>Sales</a>
                     <a href="category.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Category</a>
-                    <a href="orders.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Orders</a>
-                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Users</a>
-                    <a href="../components/admin_logout.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Logout</a>
+                    <a href="orders.php" class="nav-item nav-link active"><i class="fa-solid fa-truck me-2"></i>Orders</a>
+                    <a href="admin.php" class="nav-item nav-link"><i class="fa-sharp fa-solid fa-user-tie me-2"></i>Admins</a>
+                    <a href="users.php" class="nav-item nav-link"><i class="fa-solid fa-user me-2"></i>Users</a>
+                    <a href="../components/admin_logout.php" class="nav-item nav-link"><i class="fa-sharp fa-solid fa-right-from-bracket me-2"></i>Logout</a>
                 </div>
             </nav>
         </div>
@@ -135,33 +119,10 @@ if(!isset($admin_id)){
 
         <!-- Content Start -->
         <div class="content">
-            <!-- Navbar Start -->
-            <!-- <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <div class="navbar-nav align-items-center ms-auto" style="min-height: 50px;">
-
-                </div>
-            </nav> -->
-            <!-- Navbar End -->
-
-
-            <!-- Sale & Revenue Start -->
-           
-            <!-- Sale & Revenue End -->
-
-
-            <!-- Admin Table -->
-
-            
             <div class="container-fluid pt-4 px-4" style="margin-bottom: 30px;">
                 <div class="row g-4">
                     <div class="col-12">
-                        <div class="bg-secondary rounded h-100 p-4">
+                        <div class="bg-secondary rounded h-100 p-4" style="background-color: #fff !important; ">
                             <h5 class="mb-4">What Your Customers Ordered</h5>
                             <div class="table-responsive">
                                 <table class="table">
@@ -192,7 +153,7 @@ if(!isset($admin_id)){
 
                                             <td><?= $fetch_orders['name']; ?></td>
 
-                                            <td><?= $fetch_orders['mobile']; ?></td> <!-- image -->
+                                            <td><?= $fetch_orders['mobile']; ?></td>
                                             
                                             <td><?= $fetch_orders['location']; ?></td>
                                             <td><?= $fetch_orders['total_quantity']; ?></td>
@@ -210,22 +171,6 @@ if(!isset($admin_id)){
                     </div>
                 </div>
             </div>
-            
-            <!-- Sales Chart End -->
-
-
-            <!-- Recent Sales Start -->
-            
-            <!-- Recent Sales End -->
-
-
-            <!-- Widgets Start -->
-            
-            <!-- Widgets End -->
-
-
-            <!-- Footer Start -->
-            <!-- Footer End -->
         </div>
         <!-- Content End -->
 

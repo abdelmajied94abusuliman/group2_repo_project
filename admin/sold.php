@@ -144,12 +144,6 @@ if(isset($_GET['delete'])){
 
     <style>
         <?php include("../css/dashboardstyle.css") ?>
-        /* :root {
-            --primary: #eb8f16;
-            --secondary: #000000;
-            --light: #6C7293;
-            --dark: #000000;
-        } */
         .fa-bars:before {
             content: "\f0c9";
         }
@@ -202,8 +196,8 @@ if(isset($_GET['delete'])){
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="dashboard.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="products.php" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Products</a>
-                    <a href="sold.php" class="nav-item nav-link"><i class="fa-sharp fa-solid fa-store-slash me-2"></i>Sold</a>
+                    <a href="products.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Products</a>
+                    <a href="sold.php" class="nav-item nav-link active"><i class="fa-sharp fa-solid fa-store-slash me-2"></i>Sold</a>
                     <a href="sales.php" class="nav-item nav-link"><i class="fa-brands fa-adversal me-2"></i>Sales</a>
                     <a href="category.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Category</a>
                     <a href="orders.php" class="nav-item nav-link"><i class="fa-solid fa-truck me-2"></i>Orders</a>
@@ -218,78 +212,6 @@ if(isset($_GET['delete'])){
 
         <!-- Content Start -->
         <div class="content">
-
-            <!-- Sale & Revenue Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary rounded h-100 p-4" style="background-color: #fff !important; ">
-                            <h5 class="mb-4">Add New Product</h5>
-                            <form action="" method="post" enctype="multipart/form-data">
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Product Name</label>
-                                    <input type="text" name="name" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Product Price</label>
-                                    <input type="text" class="form-control" required id="exampleInputEmail1" aria-describedby="emailHelp" name="price">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Image</label>
-                                    <input type="file" name="image" accept="image/jpg, image/jpeg, image/png, image/webp" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Product Details</label>
-                                    <input type="text" name="details" class="form-control" required id="exampleInputPassword1">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Quantity In Store</label>
-                                    <input type="number" name="store" class="form-control" required id="exampleInputPassword1">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Product Category</label>
-                                    <select name="category" placeholder="enter product category" required class="box" required maxlength="500" cols="60" rows="10">
-                                        <?php
-                                        // اول اشي استدعي كل الاعمدة الي بجدول الكاتيجوري
-                                                $prepare_category = $conn->prepare("SELECT * FROM `category`");
-                                                $prepare_category->execute();
-                                        // هون بسأله اذا اصلا فيه بيانات بجدول الكاتيجوري اول , الفانكشن (روو كاونت ) بحسب عدد الصفوف بالجدول فلو كان صفر يعني ما فيه داتا بهادا الجدول
-
-                                                if($prepare_category->rowCount() > 0){
-                                                    // اذا الجدول فيه داتا فبقله اقرألي هاي البيانات و اعطيها اسم الي هو فيتش_كاتيجوري
-                                                    while($fetch_category = $prepare_category->fetch(PDO::FETCH_ASSOC)){
-                                        ?>
-                                        <option class="dropdown-item" name="category">
-                                                <?php 
-                                                // جوا تاج الاوبشن بقله اطبعلي الاي دييه لكل كاتيجوري بالاضافة لاسمها و بسكر التاج بعيدها
-                                                echo $fetch_category['category_id'] . "/" . $fetch_category['category_name']; 
-                                                ?>
-                                        </option>
-                                        <!-- هون بتكون جملة اللوب الاولى تبعت الوايل خلصت , فبرجع بلف كمان مرة و بطلع الكاتيجوري الثانية و هيك -->
-                                        <?php 
-                                        // هاي جملة الايلس تبعت في حال كان عدد الصفوف بالجدول يساوي صفر , طبعا اول قوس كيرلي هو تسكيرة قوس الوايل لانه لازم يكون بعد تاج الاوبشن حتى ما يصير فيه مشاكل بعرض الداتا
-                                                } } else { echo 'There is no category. Please create one first.';} 
-                                        ?>    
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary" value="Add Product" name="add_product">Add Product</button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary rounded h-100 p-4" style="background-color: #fff !important; ">
-                            <img src="https://cdn.shopify.com/s/files/1/0277/3614/5999/articles/soorten-kunst.png?v=1623749344" width="550px" height="560px">
-                        </div>
-                    </div>
-                </div>
-            </div>
-           
-            <!-- Sale & Revenue End -->
-
-
-            <!-- Admin Table -->
-
-            
             <div class="container-fluid pt-4 px-4" style="margin-bottom: 30px;">
                 <div class="row g-4">
                     <div class="col-12">
@@ -315,7 +237,7 @@ if(isset($_GET['delete'])){
 
                                     <?php
                                         $numbering = 1;
-                                        $select_products = $conn->prepare("SELECT * FROM `products` WHERE store!=sold");
+                                        $select_products = $conn->prepare("SELECT * FROM `products` WHERE sold=store");
                                         $select_products->execute();
                                         if($select_products->rowCount() > 0){
                                             while($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)){ 
@@ -370,22 +292,7 @@ if(isset($_GET['delete'])){
                     </div>
                 </div>
             </div>
-            
-            <!-- Sales Chart End -->
 
-
-            <!-- Recent Sales Start -->
-            
-            <!-- Recent Sales End -->
-
-
-            <!-- Widgets Start -->
-            
-            <!-- Widgets End -->
-
-
-            <!-- Footer Start -->
-            <!-- Footer End -->
         </div>
         <!-- Content End -->
 

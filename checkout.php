@@ -33,16 +33,43 @@ if(isset($_POST['order'])){
    if($check_cart->rowCount() > 0){
 
       $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, location, total_quantity, total_price, order_time, mobile) VALUES(?,?,?,?,?,?)");
-
       date_default_timezone_set("Asia/Amman");
-      $date_of_order = date("Y:m:d h:i:sa");
-
-      echo $date_of_order;
-      
+      $date_of_order = date("Y:m:d h:i:sa"); 
       $insert_order->execute([$user_id, $address, $total_quantity, $total_price, $date_of_order, $number]);
+
+      $select_order_to_add = $conn->prepare("SELECT * FROM `orders`ORDER BY order_id DESC LIMIT 1;");
+      $select_order_to_add->execute();
+      if($select_order_to_add->rowCount()>0){
+         while($fetch_order_to_details = $select_order_to_add->fetch(PDO::FETCH_ASSOC)){
+            $order_id = $fetch_order_to_details['order_id']; } }
+      
+      $add_product_id_to_order_details = $conn->prepare("SELECT * FROM `cart` WHERE user_id='$user_id'");
+      $add_product_id_to_order_details->execute();
+
+      while ($fetch_to_take_product_id = $add_product_id_to_order_details->fetch(PDO::FETCH_ASSOC)){
+         $product_id_in_cart = $fetch_to_take_product_id['product_id'];
+         $product_quantity = $fetch_to_take_product_id['quantity'];
+         $product_price = $fetch_to_take_product_id['price'];
+         $insert_order_details = $conn->prepare("INSERT INTO `order_details`(order_id, product_id, quantity, price) VALUES(?,?,?,?)");
+         $insert_order_details->execute([$order_id, $product_id_in_cart, $product_quantity, $product_price]);
+      }
+
+
+      while($fetch_cart_to_update = $check_cart->fetch(PDO::FETCH_ASSOC)){
+         $id = $fetch_cart_to_update['product_id'];
+         $update_products_after_sell = $conn->prepare("SELECT sold FROM `products` WHERE product_id = '$id' ");
+         $update_products_after_sell->execute();
+         $fetch_product_to_update_store = $update_products_after_sell->fetch(PDO::FETCH_ASSOC);
+         $sold_item = (int)$fetch_product_to_update_store['sold'] + 1;
+         $update_sold_product = $conn->prepare("UPDATE `products` SET sold ='$sold_item' WHERE product_id = '$id' ");
+         $update_sold_product->execute();
+      }
+
 
       $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
       $delete_cart->execute([$user_id]);
+
+      
 
    }
 
@@ -60,6 +87,7 @@ if(isset($_POST['order'])){
    
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+   <link rel="icon" type="image/x-icon" href="./images/logo.png">
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">

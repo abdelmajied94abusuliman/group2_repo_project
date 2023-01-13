@@ -41,6 +41,7 @@ if(isset($_POST['update_qty'])){
    <title>shopping cart</title>
 
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+   <link rel="icon" type="image/x-icon" href="./images/logo.png">
    <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -88,7 +89,7 @@ if(isset($_POST['update_qty'])){
 
          <?php if ($fetch_product['category_id'] != '9'){?>
 
-         <input type="number" name="quantity" class="qty" min="1" max="99" value="<?=$fetch_cart['quantity'];?>">
+         <input type="number" name="quantity" class="qty" min="1" max="<?= $fetch_product['store']-$fetch_product['sold'];?>" value="<?=$fetch_cart['quantity'];?>">
          <button type="submit" class="fas fa-edit" name="update_qty"></button>
          <?php } else { ?>
          <input type="hidden" name="quantity" value="1">

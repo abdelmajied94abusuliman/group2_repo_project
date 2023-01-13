@@ -16,14 +16,25 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
    $product_name = $_POST['name'];
    $product_price = $_POST['price'];
    $product_image = $_POST['image'];
-
-
    $product_quantity = $_POST['quantity'];
 
-   $send_to_cart = $conn->prepare("INSERT INTO `cart` (user_id , product_id , name , price , image , quantity)
-                                    VALUES (? , ? , ? , ?, ? , ?)"); 
-   $send_to_cart->execute([$user_id , $product_id , $product_name , $product_price, $product_image, $product_quantity]);
+   $check_product_id = $conn->prepare("SELECT product_id FROM `cart` WHERE user_id = '$user_id'");
+   $check_product_id->execute();
+   
 
+   $flag = true;
+
+   while($fetch_product = $check_product_id->fetch(PDO::FETCH_ASSOC)){
+      if (in_array($product_id, $fetch_product)){
+         $flag = false;
+         break;
+      }
+   };
+   if($flag==true){
+      $send_to_cart = $conn->prepare("INSERT INTO `cart` (user_id , product_id , name , price , image , quantity)
+                                    VALUES (? , ? , ? , ?, ? , ?)"); 
+      $send_to_cart->execute([$user_id , $product_id , $product_name , $product_price, $product_image, $product_quantity]);
+   }
 }
 
 
@@ -42,7 +53,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-
+   <link rel="icon" type="image/x-icon" href="./images/logo.png">
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
@@ -84,11 +95,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
 
                <div class="name" style="color:green; padding:20px 0px">$<?= $fetch_product['price']; ?></div> <?php } ?>
 
-               <?php if ($fetch_product['category_id'] != '9'){?>
+               <?php if (($fetch_product['store']-$fetch_product['sold']) != '1'){?>
 
 
 
-               <input style="margin-left: 160px ;" type="number" name="quantity" class="qty" min="1" max="99" value="1">
+               <input style="margin-left: 160px ;" type="number" name="quantity" class="qty" min="1" max="<?= $fetch_product['store']-$fetch_product['sold'];?>" value="1">
 
                <?php } else { ?>
                <input type="hidden" name="quantity" value="1">
@@ -127,7 +138,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
                 $stmt = $conn->prepare($query);
                 $stmt->execute([$pid]); ?>
 
-                  <section style="background-color: #c2b5b5;">
+                  <section style="background-color: #d7cebe;">
 
   <div class="container my-5 py-5">
     <div class="row d-flex justify-content-center">
@@ -138,7 +149,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
 
             <?php while ($comment = $stmt->fetch()) {
             $comment_id = $comment['review_id'];
-            $user_id = $comment['user_id'];
             $product_id = $comment['product_id'];
             $comment_date = $comment['review_date'];
             $comment_content = $comment['review_text'];
@@ -169,19 +179,19 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
 
 
       
-         <?php if (isset($_POST['submit_comment'])) {
+         <?php if (isset($_POST['comment_text'])) {
             if (isset($_SESSION['user_id'])) {
                $comment_text = $_POST['comment_text'];
                $sqlInserComment = "INSERT INTO review (user_id,product_id,review_text,review_date) 
                VALUES ('$user_id','$pid','$comment_text ',NOW())";
                $stmt = $conn->query($sqlInserComment);
-               $return_to_page =  $_SERVER['PHP_SELF'];
-               header("location:./quick_view.php?pid=$pid");
+               // header("location:./quick_view.php?pid=$pid");
+               echo "<script>window.location='./quick_view.php?pid=$pid'</script>";
             }
          }
-         if (!$stmt->execute([$pid])) {
-            echo "NO";
-         }
+         // if (!$stmt->execute([$pid])) {
+         //    echo "NO";
+         // }
          ?>
 
 
@@ -195,13 +205,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
                </div>
             </div>
             <div class="col-md-12 text-right">
-               <button type="submit" name="submit_comment" class="btn submit_btn" style="background-color:#67022f ; font-size : 20px;">
+               <input type="submit" name="submit_comment" value="Submit Now" class="btn submit_btn" style="background-color:#C6861A ; font-size : 20px;">
 
-                  Submit Now
-               </button>
+                  <!-- Submit Now -->
+               <!-- </button> -->
             </div>
             </form>
-            
+
          <?php } echo "<br>"; echo "<br>"?> 
 
 

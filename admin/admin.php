@@ -172,7 +172,7 @@ if(isset($_POST['new-admin']) && isset($_POST['password-newadmin'])){
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark" style="height: 100%;">
-                <a href="index.html" class="navbar-brand mx-4 mb-3" style="color:black !important">
+                <a href="index.html" class="navbar-brand mx-4 mb-3">
                     <img src="../uploaded_img/logo1.png" style="border-radius: 50%;" width="100px" height="100px" alt="0">
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -188,13 +188,13 @@ if(isset($_POST['new-admin']) && isset($_POST['password-newadmin'])){
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="dashboard.php" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="dashboard.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="products.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Products</a>
                     <a href="sold.php" class="nav-item nav-link"><i class="fa-sharp fa-solid fa-store-slash me-2"></i>Sold</a>
                     <a href="sales.php" class="nav-item nav-link"><i class="fa-brands fa-adversal me-2"></i>Sales</a>
                     <a href="category.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Category</a>
                     <a href="orders.php" class="nav-item nav-link"><i class="fa-solid fa-truck me-2"></i>Orders</a>
-                    <a href="admin.php" class="nav-item nav-link"><i class="fa-sharp fa-solid fa-user-tie me-2"></i>Admins</a>
+                    <a href="admin.php" class="nav-item nav-link active"><i class="fa-sharp fa-solid fa-user-tie me-2"></i>Admins</a>
                     <a href="users.php" class="nav-item nav-link"><i class="fa-solid fa-user me-2"></i>Users</a>
                     <a href="../components/admin_logout.php" class="nav-item nav-link"><i class="fa-sharp fa-solid fa-right-from-bracket me-2"></i>Logout</a>
                 </div>
@@ -208,119 +208,103 @@ if(isset($_POST['new-admin']) && isset($_POST['password-newadmin'])){
 
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4" style="background-color: #fff !important; ">
-                            <i class="fa fa-chart-line fa-3x text-primary" style="color:rgb(0, 0, 69) !important"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Today Sale</p>
-                                <h6 class="mb-0" style="color:black !important">$234</h6>
-                            </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4" style="background-color: #fff !important; ">
+                            <h5 class="mb-4">Add New Admin</h5>
+                            <form action="" method="post">
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Username</label>
+                                    <input type="text" name="new-admin" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                                    <input type="password" name="password-newadmin" class="form-control" id="exampleInputPassword1">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                                    <input type="password" name="co-password-newadmin" class="form-control" id="exampleInputPassword1">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add Admin</button>
+                            </form>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4" style="background-color: #fff !important; ">
-                            <i class="fa fa-chart-bar fa-3x text-primary" style="color:rgb(0, 0, 69) !important"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Total Sale</p>
-                                <h6 class="mb-0" style="color:black !important">$3522</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4" style="background-color: #fff !important; ">
-                            <i class="fa fa-chart-area fa-3x text-primary" style="color:rgb(0, 0, 69) !important"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Today Revenue</p>
-                                <h6 class="mb-0" style="color:black !important">$104</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4" style="background-color: #fff !important; ">
-                            <i class="fa fa-chart-pie fa-3x text-primary" style="color:rgb(0, 0, 69) !important"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Total Revenue</p>
-                                <h6 class="mb-0" style="color:black !important">$2606</h6>
-                            </div>
+
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4" style="background-color: #fff !important; ">
+                            <h5 class="mb-4">Update Your Profile</h5>
+                            <form action="" method="post">
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Username</label>
+                                    <input type="text" name="name" value="<?=$admin_name['name']; ?>" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Enter old password</label>
+                                    <input type="text" class="form-control" name="old_pass" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    <input type="hidden" name="prev_pass" value="<?= $admin_name['password']; ?>">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Enter new password</label>
+                                    <input type="text" class="form-control" name="new_pass" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Confirm new password</label>
+                                    <input type="password" class="form-control" name="confirm_pass" id="exampleInputPassword1">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+           
+            <!-- Sale & Revenue End -->
+
+
+            <!-- Admin Table -->
+
             
-            <!-- Sales Chart End -->
-
-            <div class="container-fluid pt-4 px-4">
+            <div class="container-fluid pt-4 px-4" style="margin-bottom: 30px;">
                 <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4" style="background-color: #fff !important; ">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0" style="color:black !important">Worldwide Sales</h6>
-                            </div>
-                            <img src="https://www.imf.org/wp-content/uploads/2021/12/COTW-FDI-update.gif" width="320px">
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4" style="background-color: #fff !important; ">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0" style="color:black !important">Salse & Revenue</h6>
-                            </div>
-                            <img src="https://exceljet.net/sites/default/files/images/chart/inline/income%20statement%20annual%20final.png">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Sales Chart End -->
+                    <div class="col-12">
+                        <div class="bg-secondary rounded h-100 p-4" style="background-color: #fff !important; ">
+                            <h5 class="mb-4">Admin Table</h5>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-
-            <!-- Recent Sales Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-secondary text-center rounded p-4" style="background-color: #fff !important; ">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0" style="color:black !important">Top Products</h6>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-white">
-                                    <th scope="col" style="color:black !important">Product Name</th>
-                                    <th scope="col" style="color:black !important">Customer</th>
-                                    <th scope="col" style="color:black !important">Amount</th>
-                                    <th scope="col" style="color:black !important">Review</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Mandala Quilling</td>
-                                    <td>asem</td>
-                                    <td>$530</td>
-                                    <td>Excellent</td>                                   
-                                </tr>
-                                <tr>
-                                    <td>Realistic and real</td>
-                                    <td>abood</td>
-                                    <td>$430</td>
-                                    <td>Amazing</td>                                    
-                                </tr>
-                                <tr>
-                                    <td>Sun and Moon</td>
-                                    <td>Abdelmajied</td>
-                                    <td>$250</td>
-                                    <td>Very Good</td>                                   
-                                </tr>
-                                <tr>
-                                    <td>Acrylic and gold leaf</td>
-                                    <td>abrar</td>
-                                    <td>$150</td>
-                                    <td>Interesting Product</td>                                   
-                                </tr>
-                                <tr>
-                                    <td>Resin Art Inspo</td>
-                                    <td>Aladdin Amayreh</td>
-                                    <td>$135</td>
-                                    <td>Very Good</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                       <?php
+                                          $select_accounts = $conn->prepare("SELECT * FROM `admins`");
+                                          $select_accounts->execute();
+                                          if($select_accounts->rowCount() > 0){
+                                             $numbering = 1 ;
+                                             while($fetch_accounts = $select_accounts->fetch(PDO::FETCH_ASSOC)){   
+                                       ?>
+                                        <tr>
+                                            <td scope="row"><?= $numbering++ ?></td>
+                                            <td><?= $fetch_accounts['name']; ?></td>
+                                            <td>
+                                                <?php if ($fetch_accounts['id'] == $admin_id ) {
+                                                    echo '-';
+                                                } else { ?>
+                                                <a href="admin_accounts.php?delete=<?= $fetch_accounts['id']; ?>" onclick="return confirm('delete this account?')" class="delete-btn">Delete</a>
+                                                <?php } ?>
+                                            </td>
+                                        </tr>
+                                       <?php } } else{
+                                                echo '<p class="empty">no accounts available!</p>';
+                                            } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

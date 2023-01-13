@@ -45,8 +45,9 @@ if(isset($_POST['name']) && isset($_POST['pass'])){
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
     
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../images/logo.png">
 
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -60,23 +61,16 @@ if(isset($_POST['name']) && isset($_POST['pass'])){
 
     <style>
         <?php include("../css/dashboardstyle.css") ?>
-        /* :root {
-            --primary: #eb8f16;
-            --secondary: #000000;
-            --light: #6C7293;
-            --dark: #000000;
-        } */
-        table {
-            color :#fff !important;
-        }
         .fa-bars:before {
             content: "\f0c9";
             color: white;
         }
+        .fa-bars:before {
+            content: "\f0c9";
+        }
         .btn-primary {
-            color: #fff;
-            background-color: #C6861A;
-            border-color: #C6861A;
+            background-color: rgb(0, 0, 69);
+            border-color: rgb(0, 0, 69);
         }
         .sidebar {
             position: fixed;
@@ -86,26 +80,18 @@ if(isset($_POST['name']) && isset($_POST['pass'])){
             width: 250px;
             height: 100vh;
             overflow-y: auto;
-            background: #cf7b7b;
             transition: 0.5s;
-            z-index: 999;
-        }
+            z-index: 999;        }
         input {
             background-color: #fff !important;
         }
-        label {
-            color: #fff !important;
-        }
         .bg-secondary {
-            background-color: #67022f !important;
-        }
-        .nav-link{
-            color: #fff !important;
+            background-color: rgb(0, 0, 69) !important;
         }
     </style>
 </head>
 
-<body>
+<body style="background-color: #fff;">
     <div class="container-fluid position-relative d-flex p-0">
 
 
@@ -114,7 +100,7 @@ if(isset($_POST['name']) && isset($_POST['pass'])){
 
             <div style="position: absolute;">
                 <img src="../images/logo.png" width="250px" height="250px" style="border-radius: 50%; float: left; margin-left: 200px; margin-top: 200px;">
-                <p style="margin-left: 80px; color: white; font-size: 60px; font-weight: bold; margin-top: 460px;">ART HAND KRAFT</p>
+                <p style="margin-left: 80px; color: rgb(0, 0, 69); font-size: 60px; font-weight: bold; margin-top: 460px;">ART HAND KRAFT</p>
             </div>
             
                <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh; margin-left: 500px;">
@@ -135,7 +121,7 @@ if(isset($_POST['name']) && isset($_POST['pass'])){
                                  <input type="password" name="pass" class="form-control" id="floatingPassword" placeholder="Password" style="background-color: white">
                                  <label for="floatingPassword">Password</label>
                               </div>
-                              <button type="submit" class="btn btn-primary py-3 w-100 mb-4" style="background-color: #C6861A ; border-color:#C6861A; font-size: large;">Login</button>
+                              <button type="submit" class="btn btn-primary py-3 w-100 mb-4" style="background-color: #fff ; border-color:#fff; color : rgb(0, 0, 69); font-size: large;">Login</button>
                            </form>
                      </div>
                   </div>

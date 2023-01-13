@@ -1,9 +1,9 @@
 /********** Template CSS **********/
 :root {
-    --primary: #67022f;
-    --secondary: #cf7b7b;
-    --light: #67022f;
-    --dark: #cf7b7b;
+    --primary: #ffffff;
+    --secondary: #efefef;
+    --light: #ffffff;
+    --dark: #efefef;
 }
 
 .back-to-top {
@@ -81,6 +81,7 @@
     min-height: 100vh;
     background: var(--dark);
     transition: 0.5s;
+    /* color: rgb(209, 209, 0); */
 }
 
 @media (min-width: 992px) {
@@ -128,10 +129,16 @@
     outline: none;
 }
 
+.sidebar .navbar .navbar-nav .nav-link:hover{
+    color : black !important;
+
+}
+
 .sidebar .navbar .navbar-nav .nav-link:hover,
 .sidebar .navbar .navbar-nav .nav-link.active {
-    color: var(--primary);
-    background: var(--dark);
+    color : black !important;
+
+    background: silver;
     border-color: var(--primary);
 }
 
@@ -141,13 +148,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: var(--dark);
+    /* background: var(--dark); */
     border-radius: 40px;
 }
 
 .sidebar .navbar .navbar-nav .nav-link:hover i,
 .sidebar .navbar .navbar-nav .nav-link.active i {
-    background: var(--secondary);
+    /* background: var(--secondary); */
 }
 
 .sidebar .navbar .dropdown-toggle::after {
@@ -195,7 +202,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: var(--dark);
+    /* background: var(--dark); */
     border-radius: 40px;
 }
 
@@ -205,7 +212,7 @@
 
 .content .navbar .dropdown-item:hover,
 .content .navbar .dropdown-item.active {
-    background: var(--dark);
+    /* background: var(--dark); */
 }
 
 .content .navbar .dropdown-toggle::after {
@@ -286,4 +293,12 @@
 .testimonial-carousel .owl-dot.active {
     background: var(--dark);
     border-color: var(--primary);
+}
+
+.mb-4{
+    color:rgb(92, 92, 92) !important;
+}
+
+.sidebar .navbar .navbar-nav .nav-link i {
+    color:rgb(255, 255, 255);
 }

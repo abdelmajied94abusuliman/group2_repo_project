@@ -17,10 +17,23 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
    $product_image = $_POST['image'];
    $product_quantity = $_POST['quantity'];
 
-   $send_to_cart = $conn->prepare("INSERT INTO `cart` (user_id , product_id , name , price , image , quantity)
-                                    VALUES (? , ? , ? , ?, ? , ?)"); 
-   $send_to_cart->execute([$user_id , $product_id , $product_name , $product_price, $product_image, $product_quantity]);
+   $check_product_id = $conn->prepare("SELECT product_id FROM `cart` WHERE user_id = '$user_id'");
+   $check_product_id->execute();
+   
 
+   $flag = true;
+
+   while($fetch_product = $check_product_id->fetch(PDO::FETCH_ASSOC)){
+      if (in_array($product_id, $fetch_product)){
+         $flag = false;
+         break;
+      }
+   };
+   if($flag==true){
+      $send_to_cart = $conn->prepare("INSERT INTO `cart` (user_id , product_id , name , price , image , quantity)
+                                    VALUES (? , ? , ? , ?, ? , ?)"); 
+      $send_to_cart->execute([$user_id , $product_id , $product_name , $product_price, $product_image, $product_quantity]);
+   }
 }
 
 
@@ -38,6 +51,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
    
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+   <link rel="icon" type="image/x-icon" href="./images/logo.png">
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
@@ -163,7 +177,10 @@ include("css/style.css");
      if($select_products->rowCount() > 0){
       while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
          $i=0;
-   ?>
+         $is_product_in_store = ($fetch_product['store']-$fetch_product['sold']);
+         if ( $is_product_in_store <= 0 ){
+            continue;
+         } else { ?>
    <form action="" method="post" class="swiper-slide slide" style="height:430px">
       <input type="hidden" name="product_id" value="<?= $fetch_product['product_id']; ?>">
       <input type="hidden" name="name" value="<?= $fetch_product['name']; ?>">
@@ -208,10 +225,10 @@ include("css/style.css");
 
             <div class="name" style="color:green;">$<?= $fetch_product['price']; ?></div> <?php } ?>
 
-         <?php if ($fetch_product['category_id'] != '9'){?>
+         <?php if (($fetch_product['store']-$fetch_product['sold']) != '1'){?>
 
 
-            <input type="number" name="quantity" class="qty" min="1" max="99" value="1">
+            <input type="number" name="quantity" class="qty" min="1" max="<?=$fetch_product['store']-$fetch_product['sold'];?>" value="1">
 
          <?php } else { ?>
             <input type="hidden" name="quantity" value="1">
@@ -221,8 +238,7 @@ include("css/style.css");
       <button type="submit" class="btn" name="addTOcart">Add To Cart</button>
    </form>
    <?php
-      }
-   }else{
+      } } }else{
       echo '<p class="empty">no products added yet!</p>';
    }
    ?>

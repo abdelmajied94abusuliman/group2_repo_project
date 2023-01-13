@@ -1,0 +1,5 @@
+name : mandala
+category : string art
+price : 255
+desc. : A piece of wood will act for your string art design.
+img : aaaaaaa
