@@ -17,7 +17,7 @@ if(isset($_POST['update'])){
    $price = $_POST['price'];
    $details = $_POST['details'];
    $category_data = $_POST['category'];
-   $quantity = $_POST['store'];
+   $quantity = $_POST['store'] + $_POST['store_qty'];
 
    $update_product = $conn->prepare("UPDATE `products` SET name = ?, price = ?, details = ?, category_id = ?, store = ? WHERE product_id = ?");
    $update_product->execute([$name, $price, $details, $category_data, $quantity, $pid]);
@@ -175,6 +175,7 @@ if(isset($_POST['update'])){
                             <form action="" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="pid" value="<?= $fetch_products['product_id']; ?>">
                             <input type="hidden" name="old_image" value="<?= $fetch_products['image']; ?>">
+                            <input type="hidden" name="store_qty" value="<?= $fetch_products['store']; ?>">
 
 
                                 <div class="mb-3">
@@ -195,7 +196,7 @@ if(isset($_POST['update'])){
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Quantity In Store</label>
-                                    <input type="number" name="store" class="form-control" required id="exampleInputPassword1">
+                                    <input type="number" name="store" class="form-control" id="exampleInputPassword1">
                                 </div>
                                 <div class="mb-3">
                                 <select name="category" placeholder="enter product category" class="box" required maxlength="500" cols="60" rows="10">

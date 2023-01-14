@@ -144,12 +144,6 @@ if(isset($_GET['delete'])){
 
     <style>
         <?php include("../css/dashboardstyle.css") ?>
-        /* :root {
-            --primary: #eb8f16;
-            --secondary: #000000;
-            --light: #6C7293;
-            --dark: #000000;
-        } */
         .fa-bars:before {
             content: "\f0c9";
         }
