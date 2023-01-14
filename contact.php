@@ -27,8 +27,12 @@ if(isset($_SESSION['user_id'])){
    <link rel="icon" type="image/x-icon" href="./images/logo.png">
 
    <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
+   <style>
+   <?php 
+include("css/style.css");
 
+?>
+</style>
 </head>
 <body>
    

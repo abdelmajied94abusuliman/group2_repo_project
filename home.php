@@ -37,6 +37,42 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
 }
 
 
+
+
+
+
+
+if(isset($_POST['add_to_wishlist'])){
+
+   if($user_id == ''){
+      header('location:user_login.php');
+   }else{
+
+      $pid = $_POST['product_id'];
+
+
+      $check_wishlist_numbers = $conn->prepare("SELECT * FROM `favorite` WHERE product_id = ? AND user_id = ?");
+      $check_wishlist_numbers->execute([$pid, $user_id]);
+
+      $check_cart_numbers = $conn->prepare("SELECT * FROM `cart` WHERE product_id = ? AND user_id = ?");
+      $check_cart_numbers->execute([$pid, $user_id]);
+
+      if($check_wishlist_numbers->rowCount() > 0){
+         $message[] = 'Your Product <span style="color:red">Already</span> Added To Wishlist!';
+      }elseif($check_cart_numbers->rowCount() > 0){
+         $message[] = 'Your Product <span style="color:red">Already</span> Added To Cart!';
+      }else{
+         $insert_wishlist = $conn->prepare("INSERT INTO `favorite`(user_id, product_id) VALUES(?,?)");
+         $insert_wishlist->execute([$user_id, $pid]);
+         $message[] = 'Your Product <span style="color:green">Added</span> To Wishlist!';
+      }
+
+   }
+
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +90,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['addTOcart'])){
    <link rel="icon" type="image/x-icon" href="./images/logo.png">
 
    <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
+   <!-- <link rel="stylesheet" href="css/style.css"> -->
 <style> 
 <?php 
 include("css/style.css");
@@ -196,6 +232,7 @@ include("css/style.css");
       }
       ?>
       <input type="hidden" name="image" value="<?= $fetch_product['image']; ?>">
+      <button class="fas fa-heart" type="submit" name="add_to_wishlist"></button>
       <a href="quick_view.php?pid=<?= $fetch_product['product_id']; ?>" class="fas fa-eye"></a>
       <img src="uploaded_img/<?= $fetch_product['image']; ?>" alt="">
       <div class="name"><?= $fetch_product['name']; ?></div>
@@ -239,7 +276,7 @@ include("css/style.css");
    </form>
    <?php
       } } }else{
-      echo '<p class="empty">no products added yet!</p>';
+      echo '<p class="empty">No Products Added Yet!</p>';
    }
    ?>
 

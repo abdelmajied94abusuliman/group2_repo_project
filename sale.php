@@ -104,7 +104,7 @@ include("css/style.css");
    <div class="box-container">
 
    <?php
-     $select_products = $conn->prepare("SELECT * FROM `products`"); 
+     $select_products = $conn->prepare("SELECT * FROM `products` WHERE is_sale = 1"); 
      $select_products->execute();
      if($select_products->rowCount() > 0){
       while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){

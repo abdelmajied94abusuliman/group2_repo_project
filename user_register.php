@@ -27,14 +27,14 @@ if(isset($_POST['submit'])){
    $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
    if($select_user->rowCount() > 0){
-      $message[] = 'email already exists!';
+      $message[] = 'Email <span style="color:red">Already</span> Exists!';
    }else{
       if($pass != $cpass){
-         $message[] = 'confirm password not matched!';
+         $message[] = 'Confirm Password <span style="color:red">Not Matched</span>!';
       }else{
          $insert_user = $conn->prepare("INSERT INTO `users`(name, email, password, mobile) VALUES(?,?,?,?)");
          $insert_user->execute([$name, $email, $cpass, $mobile]);
-         $message[] = 'registered successfully, login now please!';
+         $message[] = 'Registered <span style="color:green">Successfully</span>, Login Now Please!';
       }
    }
 
@@ -55,7 +55,13 @@ if(isset($_POST['submit'])){
    <link rel="icon" type="image/x-icon" href="./images/logo.png">
 
    <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
+   <!-- <link rel="stylesheet" href="css/style.css"> -->
+   <style>
+   <?php 
+include("css/style.css");
+
+?>
+</style>
 
 </head>
 <body>

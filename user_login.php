@@ -28,7 +28,7 @@ if(isset($_POST['submit'])){
       $_SESSION['name']= $row['name'];
       header('location:home.php');
    }else{
-      $message[] = 'incorrect username or password!';
+      $message[] = '<span style="color:red">Incorrect</span> Username Or Password!';
    }
 
 }
@@ -49,7 +49,13 @@ if(isset($_POST['submit'])){
    <link rel="icon" type="image/x-icon" href="./images/logo.png">
 
    <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
+   <!-- <link rel="stylesheet" href="css/style.css"> -->
+   <style>
+   <?php 
+include("css/style.css");
+
+?>
+</style>
 
 </head>
 <body>
