@@ -63,7 +63,6 @@ include("css/style.css");
 
 <?php
    $total_price = 0;
-   $x = 0;
    $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
    $select_cart->execute([$user_id]);
    if($select_cart->rowCount() > 0){
@@ -85,16 +84,15 @@ include("css/style.css");
       if($select_product->rowCount() > 0){
 
          while($fetch_product = $select_product->fetch(PDO::FETCH_ASSOC)){
+            $x = 0;
          
          if ($fetch_product['is_sale'] == 1){ ?>
 
          <div class="price"><span><del style="text-decoration:line-through; color:silver">$<?= $fetch_product['price']; ?></del><ins style="color:#67022f;"> $<?=$fetch_product['price_discount'];?></ins> </span></div>
 
-         <?php $x += $fetch_product['price_discount']; } else { ?>
+         <?php $x = $fetch_product['price_discount']; } else { ?>
 
-         <div class="name" style="color:green; padding:20px 0px">$<?= $fetch_product['price']; ?></div> <?php 
-         $x += $fetch_product['price'];
-         } ?>
+         <div class="name" style="color:green; padding:20px 0px">$<?= $fetch_product['price']; ?></div> <?php  $x = $fetch_product['price']; } ?>
 
          <?php if ($fetch_product['category_id'] != '9'){?>
 
